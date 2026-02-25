@@ -852,7 +852,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--white);fo
 
     <span class="tag tag-teal">&#9679; 116M+ Lives</span>
 
-    <span class="tag tag-purple">&#9679; 50M+ Reach</span>
+    <span class="tag tag-purple">&#9679; 30M+ Reach</span>
 
   </div>
 
@@ -906,7 +906,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--white);fo
 
     <div class="card card-accent-red" style="text-align:center">
 
-      <div class="num" style="color:var(--red);font-family:'Playfair Display',serif;font-size:56px;font-weight:900;line-height:1;margin-bottom:10px" data-count="25">~25</div>
+      <div class="num" id="days-remaining" style="color:var(--red);font-family:'Playfair Display',serif;font-size:56px;font-weight:900;line-height:1;margin-bottom:10px">--</div>
 
       <h4 style="text-align:center">Days Remaining</h4>
 
@@ -926,11 +926,11 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--white);fo
 
     <div class="card card-accent-teal" style="text-align:center">
 
-      <div class="num" style="color:var(--teal);font-family:'Playfair Display',serif;font-size:56px;font-weight:900;line-height:1;margin-bottom:10px" data-count="73">73</div>
+      <div class="num" style="color:var(--teal);font-family:'Playfair Display',serif;font-size:56px;font-weight:900;line-height:1;margin-bottom:10px">118</div>
 
       <h4 style="text-align:center">Creator Wave</h4>
 
-      <p style="text-align:center;font-size:13px">15 priority outreach now + 58 community creators activated simultaneously</p>
+      <p style="text-align:center;font-size:13px">17 OKX Approved (P1) + 33 mid-range (P2) + 68 community (P3)</p>
 
     </div>
 
@@ -2208,6 +2208,27 @@ show(0);
 
 </script>
 
+
+<script>
+(function(){
+  // Ramadan 2026 end: March 20, 2026 (Eid al-Fitr UAE)
+  var RAMADAN_END = new Date('2026-03-20T00:00:00+04:00');
+  function updateDays(){
+    var now = new Date();
+    var diff = RAMADAN_END - now;
+    var el = document.getElementById('days-remaining');
+    if(!el) return;
+    if(diff <= 0){
+      el.textContent = '0';
+      return;
+    }
+    var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    el.textContent = days;
+  }
+  updateDays();
+  setInterval(updateDays, 60000); // refresh every minute
+})();
+</script>
 </body>
 
 </html>
