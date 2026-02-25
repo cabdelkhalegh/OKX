@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OKX Ã— Dubai Cares â€” Outreach Tracker</title>
+<title>OKX x Dubai Cares &mdash; Outreach Tracker</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -59,9 +59,9 @@ a{color:var(--teal);text-decoration:none}
 .toggle-switch.on::after{left:16px}
 
 /* TABLE WRAPPER */
-.table-wrap{overflow-x:auto;padding:0 24px 24px}
+.table-wrap{overflow:auto;max-height:calc(100vh - 220px);padding:0 24px 24px}
 table{width:100%;border-collapse:collapse;min-width:1100px}
-thead th{padding:10px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);border-bottom:1px solid var(--border);position:sticky;top:56px;background:var(--bg);white-space:nowrap}
+thead th{padding:10px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10;white-space:nowrap}
 thead th.sortable{cursor:pointer}.thead th.sortable:hover{color:var(--gold)}
 tbody tr{border-bottom:1px solid var(--border);transition:.1s}
 tbody tr:hover{background:rgba(255,255,255,.02)}
@@ -105,13 +105,13 @@ tbody td{padding:10px 10px;vertical-align:middle}
 .notes-input{background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 8px;font-size:11px;font-family:inherit;color:var(--muted);width:180px;outline:none;resize:none;height:32px}
 .notes-input:focus{border-color:var(--border);background:var(--surface2);color:var(--text)}
 
-/* TEXT INPUT (for contacted_by) */
+/* TEXT INPUT */
 .text-input{background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 8px;font-size:12px;font-family:inherit;color:var(--text);width:100px;outline:none}
 .text-input:focus{border-color:var(--border);background:var(--surface2)}
 
-/* ACTION BUTTONS (per row) */
+/* ACTION BUTTONS */
 .row-actions{display:flex;gap:4px;align-items:center}
-.icon-btn{background:none;border:1px solid transparent;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:.15s}
+.icon-btn{background:none;border:1px solid transparent;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:.15s;font-family:inherit}
 .icon-btn:hover{border-color:var(--border);color:var(--text);background:var(--surface2)}
 .icon-btn.hide-btn:hover{color:var(--orange)}
 .icon-btn.delete-btn:hover{color:var(--red)}
@@ -124,9 +124,9 @@ tbody td{padding:10px 10px;vertical-align:middle}
 
 /* EMPTY STATE */
 .empty-state{text-align:center;padding:60px 24px;color:var(--dim)}
-.empty-state .icon{font-size:40px;margin-bottom:12px;opacity:.5}
+.empty-state .icon{font-size:36px;margin-bottom:12px;opacity:.5}
 
-/* LOADING OVERLAY */
+/* LOADING */
 #loading{position:fixed;inset:0;background:rgba(13,13,20,.85);z-index:500;display:flex;align-items:center;justify-content:center;gap:12px;font-size:14px;color:var(--muted)}
 #loading .spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -139,7 +139,7 @@ tbody td{padding:10px 10px;vertical-align:middle}
 .toast-msg.info{border-left:3px solid var(--teal)}
 @keyframes toastin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* ADD CREATOR MODAL */
+/* ADD MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:flex;align-items:center;justify-content:center;padding:24px}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
 .modal h3{font-size:18px;font-weight:800;margin-bottom:24px}
@@ -152,7 +152,7 @@ tbody td{padding:10px 10px;vertical-align:middle}
 .form-field select option{background:var(--surface2)}
 .modal-actions{display:flex;gap:10px;margin-top:24px;justify-content:flex-end}
 
-/* REALTIME PULSE */
+/* REALTIME */
 .rt-pulse{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
 
 /* RESPONSIVE */
@@ -172,46 +172,63 @@ tbody td{padding:10px 10px;vertical-align:middle}
 <!-- TOAST -->
 <div id="toast"></div>
 
-<!-- ADD MODAL (hidden by default) -->
+<!-- ADD MODAL -->
 <div class="modal-overlay" id="addModal" style="display:none">
   <div class="modal">
-    <h3>âž• Add Creator</h3>
+    <h3>+ Add Creator</h3>
     <div class="form-grid">
       <div class="form-field full"><label>Name *</label><input id="f-name" placeholder="e.g. Lojain Omran"></div>
       <div class="form-field"><label>Handle *</label><input id="f-handle" placeholder="@username"></div>
       <div class="form-field"><label>Instagram URL</label><input id="f-ig" placeholder="https://instagram.com/..."></div>
       <div class="form-field"><label>Wave / Priority</label>
-        <select id="f-wave"><option value="P1">ðŸ”´ P1 â€” Priority</option><option value="P2">ðŸŸ¡ P2 â€” Mid</option><option value="P3" selected>ðŸŸ¢ P3 â€” Community</option></select>
+        <select id="f-wave">
+          <option value="P1">P1 &mdash; Priority</option>
+          <option value="P2">P2 &mdash; Mid-Range</option>
+          <option value="P3" selected>P3 &mdash; Community</option>
+        </select>
       </div>
       <div class="form-field"><label>OKX Status</label>
-        <select id="f-okx"><option>OKX Approved</option><option>Our Pick</option><option selected>OKX Listed</option></select>
+        <select id="f-okx">
+          <option>OKX Approved</option>
+          <option>Our Pick</option>
+          <option selected>OKX Listed</option>
+        </select>
       </div>
       <div class="form-field"><label>Nationality</label><input id="f-nat" placeholder="e.g. Emirati"></div>
       <div class="form-field"><label>Category</label><input id="f-cat" placeholder="e.g. Lifestyle / Food"></div>
       <div class="form-field"><label>Followers</label><input id="f-foll" placeholder="e.g. 500K"></div>
       <div class="form-field"><label>Gender</label>
-        <select id="f-gender"><option value="">â€”</option><option>Female</option><option>Male</option><option>Couple / Team</option><option>Brand / Media</option></select>
+        <select id="f-gender">
+          <option value="">--</option>
+          <option>Female</option>
+          <option>Male</option>
+          <option>Couple / Team</option>
+          <option>Brand / Media</option>
+        </select>
       </div>
-      <div class="form-field"><label>Age Range</label><input id="f-age" placeholder="e.g. 25â€“34"></div>
+      <div class="form-field"><label>Age Range</label><input id="f-age" placeholder="e.g. 25-34"></div>
       <div class="form-field full"><label>Audience Location</label><input id="f-aud" placeholder="e.g. UAE 60%, Saudi 20%, Egypt 10%"></div>
       <div class="form-field full"><label>Notes</label><textarea id="f-notes" rows="2" placeholder="Any relevant context..."></textarea></div>
     </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveNewCreator()">âœ“ Add Creator</button>
+      <button class="btn btn-primary" onclick="saveNewCreator()">+ Add Creator</button>
     </div>
   </div>
 </div>
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <div>
-    <div class="topbar h1" style="color:var(--gold);font-size:14px;font-weight:800">âš™ï¸ OKX Ã— Dubai Cares â€” Outreach Tracker</div>
-    <div style="font-size:10px;color:var(--dim)">Ramadan 2026 | TiKiT Agency â€” Confidential</div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <img src="https://cabdelkhalegh.github.io/OKX/tikit-logo.png" alt="TiKiT" style="height:26px;background:#fff;padding:3px 8px;border-radius:6px;">
+    <div>
+      <div style="color:var(--gold);font-size:14px;font-weight:800">OKX &times; Dubai Cares &mdash; Outreach Tracker</div>
+      <div style="font-size:10px;color:var(--dim)">Ramadan 2026 &nbsp;|&nbsp; TiKiT Agency &mdash; Confidential</div>
+    </div>
   </div>
   <div class="topbar-right">
     <div class="rt-pulse"><div class="status-dot" id="rtDot"></div><span id="rtStatus">Connecting...</span></div>
-    <button class="btn btn-teal" onclick="exportCSV()">â¬‡ Export CSV</button>
+    <button class="btn btn-teal" onclick="exportCSV()">&#8595; Export CSV</button>
   </div>
 </div>
 
@@ -223,9 +240,9 @@ tbody td{padding:10px 10px;vertical-align:middle}
   <div class="budget-sep"></div>
   <div class="bstat gold"><div class="val" id="b-paid-count">0</div><div class="lbl">Paid Confirmed</div></div>
   <div class="budget-sep"></div>
-  <div class="bstat" style="--c:var(--purple)"><div class="val" id="b-fees" style="color:var(--purple)">AED 0</div><div class="lbl">Fees Agreed</div></div>
+  <div class="bstat" style="--c:var(--purple)"><div class="val" id="b-fees" style="color:var(--purple)">$0</div><div class="lbl">Fees Agreed (USD)</div></div>
   <div class="budget-sep"></div>
-  <div class="bstat red"><div class="val" id="b-remaining">AED 350,000</div><div class="lbl">Budget Remaining</div></div>
+  <div class="bstat red"><div class="val" id="b-remaining">$30,000</div><div class="lbl">Budget Remaining (USD)</div></div>
   <div class="budget-sep"></div>
   <div class="bstat"><div class="val" id="b-declined" style="color:var(--red)">0</div><div class="lbl">Declined</div></div>
   <div class="budget-sep"></div>
@@ -234,12 +251,12 @@ tbody td{padding:10px 10px;vertical-align:middle}
 
 <!-- CONTROLS -->
 <div class="controls">
-  <input class="search-box" id="searchBox" placeholder="ðŸ”  Search creator, handle, notes..." oninput="applyFilters()">
+  <input class="search-box" id="searchBox" placeholder="Search creator, handle, notes..." oninput="applyFilters()">
   <select class="filter-select" id="fWave" onchange="applyFilters()">
     <option value="">All Waves</option>
-    <option value="P1">ðŸ”´ Priority (P1)</option>
-    <option value="P2">ðŸŸ¡ Mid-Range (P2)</option>
-    <option value="P3">ðŸŸ¢ Community (P3)</option>
+    <option value="P1">Priority (P1)</option>
+    <option value="P2">Mid-Range (P2)</option>
+    <option value="P3">Community (P3)</option>
   </select>
   <select class="filter-select" id="fStatus" onchange="applyFilters()">
     <option value="">All Statuses</option>
@@ -290,8 +307,8 @@ tbody td{padding:10px 10px;vertical-align:middle}
         <th style="width:80px">Contacted By</th>
         <th style="width:170px">Status</th>
         <th style="width:110px">Compensation</th>
-        <th style="width:105px">Fee Quoted (AED)</th>
-        <th style="width:105px">Fee Agreed (AED)</th>
+        <th style="width:105px">Fee Quoted (USD)</th>
+        <th style="width:105px">Fee Agreed (USD)</th>
         <th style="width:190px">Notes</th>
         <th style="width:70px">Actions</th>
       </tr>
@@ -299,19 +316,17 @@ tbody td{padding:10px 10px;vertical-align:middle}
     <tbody id="tableBody"></tbody>
   </table>
   <div class="empty-state" id="emptyState" style="display:none">
-    <div class="icon">ðŸ”</div>
+    <div class="icon">&#128269;</div>
     <div>No creators match your filters.</div>
   </div>
 </div>
 
 <script>
-// ============================================================
-// CONFIG â€” Replace with your Supabase project values
-// ============================================================
+// CONFIG
 const SUPABASE_URL = 'https://trxifnxyrncsoxgklwcq.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyeGlmbnh5cm5jc294Z2tsd2NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI4MDYsImV4cCI6MjA4NzAxODgwNn0.kB0PKy1CLxsJIU1T2JIbtyDYV1HK0Pf3zaOsN_Kp5vc';
-const BUDGET_TOTAL = 350000; // AED
-// ============================================================
+const BUDGET_TOTAL = 30000;
+const CURRENCY = '$'; // USD
 
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -319,7 +334,7 @@ const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let allCreators = [];
 let showHidden = false;
 
-// â”€â”€ INIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- INIT --
 async function init() {
   try {
     await loadCreators();
@@ -328,15 +343,15 @@ async function init() {
   } catch(e) {
     document.getElementById('loading').innerHTML = `
       <div style="text-align:center;padding:24px">
-        <div style="font-size:24px;margin-bottom:12px">âš ï¸</div>
+        <div style="font-size:24px;margin-bottom:12px">&#9888;</div>
         <div style="color:#ff5555;margin-bottom:8px">Database connection failed</div>
         <div style="font-size:12px;color:#666">${e.message}</div>
-        <div style="font-size:11px;color:#555;margin-top:12px">Check that SUPABASE_URL and SUPABASE_ANON_KEY are configured correctly.</div>
+        <div style="font-size:11px;color:#555;margin-top:12px">Check SUPABASE_URL and SUPABASE_ANON_KEY are configured correctly.</div>
       </div>`;
   }
 }
 
-// â”€â”€ LOAD DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- LOAD --
 async function loadCreators() {
   const { data, error } = await db.from('okx_outreach').select('*').order('wave').order('name');
   if (error) throw error;
@@ -345,14 +360,14 @@ async function loadCreators() {
   updateBudget();
 }
 
-// â”€â”€ REALTIME â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- REALTIME --
 function setupRealtime() {
   db.channel('okx-outreach-rt')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'okx_outreach' }, payload => {
       const ev = payload.eventType;
       if (ev === 'INSERT') {
         allCreators.push(payload.new);
-        toast('ðŸ‘¤ New creator added: ' + payload.new.name, 'info');
+        toast('New creator added: ' + payload.new.name, 'info');
       } else if (ev === 'UPDATE') {
         const i = allCreators.findIndex(c => c.id === payload.new.id);
         if (i >= 0) allCreators[i] = payload.new;
@@ -361,14 +376,14 @@ function setupRealtime() {
       }
       render();
       updateBudget();
-      document.getElementById('rtStatus').textContent = 'Live â€” ' + new Date().toLocaleTimeString('en', {hour:'2-digit',minute:'2-digit'});
+      document.getElementById('rtStatus').textContent = 'Live - ' + new Date().toLocaleTimeString('en', {hour:'2-digit',minute:'2-digit'});
     })
     .subscribe(status => {
       const dot = document.getElementById('rtDot');
       const txt = document.getElementById('rtStatus');
       if (status === 'SUBSCRIBED') {
         dot.style.background = '#28c850';
-        txt.textContent = 'Live â€” realtime connected';
+        txt.textContent = 'Live - realtime connected';
       } else {
         dot.style.background = '#ff5555';
         txt.textContent = 'Reconnecting...';
@@ -376,7 +391,7 @@ function setupRealtime() {
     });
 }
 
-// â”€â”€ RENDER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- RENDER --
 function applyFilters() { render(); }
 
 function render() {
@@ -418,17 +433,17 @@ function render() {
       <td class="cell-name">
         ${esc(c.name)}
         ${c.hidden ? '<span style="font-size:9px;background:rgba(255,119,0,.15);color:#ff7700;border:1px solid rgba(255,119,0,.25);padding:1px 6px;border-radius:6px;margin-left:4px">HIDDEN</span>' : ''}
-        <div class="sub">${esc(c.category||'')} ${c.gender ? 'Â· '+esc(c.gender) : ''}</div>
+        <div class="sub">${esc(c.category||'')} ${c.gender ? '&middot; '+esc(c.gender) : ''}</div>
       </td>
       <td class="cell-handle">
-        <a href="${esc(c.ig_url||'#')}" target="_blank">${esc(c.handle||'â€”')}</a>
-        ${c.ig_url ? '<div style="font-size:9px;color:var(--dim)"><a href="'+esc(c.ig_url)+'" target="_blank" style="color:var(--dim)">â†— Instagram</a></div>' : ''}
+        <a href="${esc(c.ig_url||'#')}" target="_blank">${esc(c.handle||'-')}</a>
+        ${c.ig_url ? '<div style="font-size:9px;color:var(--dim)"><a href="'+esc(c.ig_url)+'" target="_blank" style="color:var(--dim)">IG &nearr;</a></div>' : ''}
       </td>
       <td><span class="wave-badge wave-${c.wave||'P3'}">${c.wave||'P3'}</span></td>
-      <td><span class="okx-badge ${okxClass(c.okx_status)}">${esc(c.okx_status||'â€”')}</span></td>
-      <td style="font-size:12px;font-weight:600">${esc(c.followers||'â€”')}</td>
-      <td style="font-size:11px;color:var(--muted)">${esc(c.nationality||'â€”')}</td>
-      <td style="font-size:11px;color:var(--muted)">${esc(c.category||'â€”')}</td>
+      <td><span class="okx-badge ${okxClass(c.okx_status)}">${esc(c.okx_status||'-')}</span></td>
+      <td style="font-size:12px;font-weight:600">${esc(c.followers||'-')}</td>
+      <td style="font-size:11px;color:var(--muted)">${esc(c.nationality||'-')}</td>
+      <td style="font-size:11px;color:var(--muted)">${esc(c.category||'-')}</td>
       <td>
         <input class="text-input" value="${esc(c.contacted_by||'')}" placeholder="Name..."
           onblur="updateField('${c.id}','contacted_by',this.value)" onkeydown="if(event.key==='Enter')this.blur()">
@@ -454,7 +469,7 @@ function render() {
       <td>
         <input class="fee-input" type="number" min="0" step="500"
           value="${c.fee_agreed||''}" placeholder="0"
-          onblur="updateField('${c.id}','fee_agreed',parseFloat(this.value)||null);updateBudget()"
+          onblur="updateField('${c.id}','fee_agreed',parseFloat(this.value)||null)"
           onkeydown="if(event.key==='Enter')this.blur()">
       </td>
       <td>
@@ -463,29 +478,34 @@ function render() {
       </td>
       <td>
         <div class="row-actions">
-          <button class="icon-btn" title="Edit demographics" onclick="editDemographics('${c.id}')">ðŸ“Š</button>
-          <button class="icon-btn hide-btn" title="${c.hidden?'Unhide':'Hide'}" onclick="toggleHideCreator('${c.id}',${!c.hidden})">${c.hidden?'ðŸ‘':'ðŸ™ˆ'}</button>
-          <button class="icon-btn delete-btn" title="Delete permanently" onclick="deleteCreator('${c.id}','${esc(c.name)}')">ðŸ—‘</button>
+          <button class="icon-btn" title="Edit demographics" onclick="editDemographics('${c.id}')">&#9998;</button>
+          <button class="icon-btn hide-btn" title="${c.hidden?'Unhide':'Hide'}" onclick="toggleHideCreator('${c.id}',${!c.hidden})">${c.hidden?'&#128065;':'&#128584;'}</button>
+          <button class="icon-btn delete-btn" title="Delete permanently" onclick="deleteCreator('${c.id}','${esc(c.name)}')">&#128465;</button>
         </div>
       </td>
     </tr>
   `).join('');
 }
 
-// â”€â”€ FIELD UPDATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- FIELD UPDATE (optimistic: update local state + budget immediately, persist in background) --
 async function updateField(id, field, value) {
-  const { error } = await db.from('okx_outreach').update({ [field]: value }).eq('id', id);
-  if (error) { toast('Update failed: ' + error.message, 'error'); return; }
   const c = allCreators.find(x => x.id === id);
-  if (c) c[field] = value;
-  updateBudget();
+  const oldValue = c ? c[field] : null;
+  // Update local cache + budget banner instantly (no re-render — preserves input focus)
+  if (c) { c[field] = value; updateBudget(); }
+  const { error } = await db.from('okx_outreach').update({ [field]: value }).eq('id', id);
+  if (error) {
+    // Revert local cache on failure
+    if (c) { c[field] = oldValue; updateBudget(); }
+    toast('Save failed: ' + error.message, 'error');
+  }
 }
 
-// â”€â”€ HIDE/UNHIDE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- HIDE/UNHIDE --
 async function toggleHideCreator(id, newHidden) {
   await updateField(id, 'hidden', newHidden);
   render();
-  toast(newHidden ? 'ðŸ™ˆ Creator hidden' : 'ðŸ‘ Creator visible', 'info');
+  toast(newHidden ? 'Creator hidden' : 'Creator visible', 'info');
 }
 
 function toggleHidden() {
@@ -494,17 +514,17 @@ function toggleHidden() {
   render();
 }
 
-// â”€â”€ DELETE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- DELETE --
 async function deleteCreator(id, name) {
-  if (!confirm(`Delete "${name}" permanently? This cannot be undone.`)) return;
+  if (!confirm('Delete "' + name + '" permanently? This cannot be undone.')) return;
   const { error } = await db.from('okx_outreach').delete().eq('id', id);
   if (error) { toast('Delete failed: ' + error.message, 'error'); return; }
   allCreators = allCreators.filter(c => c.id !== id);
   render(); updateBudget();
-  toast(`ðŸ—‘ "${name}" deleted`, 'info');
+  toast('"' + name + '" deleted', 'info');
 }
 
-// â”€â”€ ADD CREATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- ADD CREATOR --
 function openModal() { document.getElementById('addModal').style.display = 'flex'; }
 function closeModal() { document.getElementById('addModal').style.display = 'none'; clearForm(); }
 
@@ -529,7 +549,7 @@ async function saveNewCreator() {
   if (error) { toast('Insert failed: ' + error.message, 'error'); return; }
   allCreators.push(data);
   render(); updateBudget(); closeModal();
-  toast(`âœ… "${name}" added to the tracker`, 'success');
+  toast('"' + name + '" added to the tracker', 'success');
 }
 
 function clearForm() {
@@ -541,7 +561,7 @@ function clearForm() {
   document.getElementById('f-gender').value = '';
 }
 
-// â”€â”€ DEMOGRAPHICS EDIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- DEMOGRAPHICS --
 async function editDemographics(id) {
   const c = allCreators.find(x => x.id === id);
   if (!c) return;
@@ -556,10 +576,10 @@ async function editDemographics(id) {
   await db.from('okx_outreach').update({ gender, age_range, audience_location, followers }).eq('id', id);
   Object.assign(c, { gender, age_range, audience_location, followers });
   render();
-  toast('ðŸ“Š Demographics updated', 'success');
+  toast('Demographics updated', 'success');
 }
 
-// â”€â”€ BUDGET CALC â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- BUDGET --
 function updateBudget() {
   const visible = allCreators.filter(c => !c.hidden);
   const probono = visible.filter(c => c.status === 'Pro-bono Confirmed').length;
@@ -573,16 +593,15 @@ function updateBudget() {
   document.getElementById('b-paid-count').textContent = paidCount;
   document.getElementById('b-contacted').textContent = contacted;
   document.getElementById('b-declined').textContent = declined;
-  document.getElementById('b-fees').textContent = 'AED ' + fees.toLocaleString();
-  document.getElementById('b-remaining').textContent = 'AED ' + Math.max(0, remaining).toLocaleString();
+  document.getElementById('b-fees').textContent = CURRENCY + fees.toLocaleString();
+  document.getElementById('b-remaining').textContent = CURRENCY + Math.max(0, remaining).toLocaleString();
   document.getElementById('b-total').textContent = visible.length;
-
   document.getElementById('b-remaining').style.color = remaining < 50000 ? 'var(--red)' : 'var(--orange)';
 }
 
-// â”€â”€ EXPORT CSV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- CSV EXPORT --
 function exportCSV() {
-  const headers = ['Name','Handle','IG URL','Wave','OKX Status','Followers','Nationality','Category','Gender','Age Range','Audience Location','Contacted By','Status','Compensation','Fee Quoted (AED)','Fee Agreed (AED)','Notes'];
+  const headers = ['Name','Handle','IG URL','Wave','OKX Status','Followers','Nationality','Category','Gender','Age Range','Audience Location','Contacted By','Status','Compensation','Fee Quoted (USD)','Fee Agreed (USD)','Notes'];
   const rows = allCreators.filter(c => !c.hidden).map(c => [
     c.name, c.handle, c.ig_url, c.wave, c.okx_status, c.followers,
     c.nationality, c.category, c.gender, c.age_range, c.audience_location,
@@ -593,10 +612,10 @@ function exportCSV() {
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   a.download = 'OKX_DubaiCares_Outreach_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
-  toast('ðŸ“¥ CSV exported', 'success');
+  toast('CSV exported', 'success');
 }
 
-// â”€â”€ HELPERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- HELPERS --
 function hide(id) { document.getElementById(id).style.display = 'none'; }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -632,7 +651,6 @@ function styleSelect(el, type) {
     : 'comp-select ' + compClass(el.value);
 }
 
-let _toastTimer = {};
 function toast(msg, type='info') {
   const container = document.getElementById('toast');
   const div = document.createElement('div');
@@ -642,9 +660,8 @@ function toast(msg, type='info') {
   setTimeout(() => { div.style.opacity='0'; div.style.transition='.3s'; setTimeout(() => div.remove(), 300); }, 3000);
 }
 
-// â”€â”€ START â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- START --
 init();
 </script>
 </body>
 </html>
-
