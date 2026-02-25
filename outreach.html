@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OKX × Dubai Cares — Creator Outreach Guide | TiKiT Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d0d14;--gold:#d4a843;--teal:#00b4d8;--red:#ff5555;--white:#f0f0f0;--gray:#888;--card:#161622;--card2:#1c1c2e;--border:rgba(255,255,255,.07)}
+html,body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;font-size:14px;line-height:1.6}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* LAYOUT */
+.page{max-width:1100px;margin:0 auto;padding:0 32px 80px}
+
+/* TOP BAR */
+.topbar{background:rgba(212,168,67,.08);border-bottom:1px solid rgba(212,168,67,.2);padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+.topbar .logo{font-weight:800;font-size:14px;color:var(--gold);letter-spacing:1px}
+.topbar nav{display:flex;gap:24px;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.topbar nav a{color:#888;transition:.2s}.topbar nav a:hover{color:var(--gold);text-decoration:none}
+.print-btn{background:var(--gold);color:#000;border:none;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px}
+.print-btn:hover{opacity:.85}
+
+/* COVER */
+.cover{text-align:center;padding:80px 32px 60px;border-bottom:1px solid var(--border)}
+.cover h1{font-size:clamp(28px,4vw,52px);font-weight:900;line-height:1.15;margin-bottom:16px}
+.cover p{font-size:16px;color:#aaa;max-width:600px;margin:0 auto 32px}
+.stats-row{display:flex;justify-content:center;gap:40px;margin-top:32px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat .n{font-size:36px;font-weight:900;color:var(--gold)}
+.stat .l{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* SECTION HEADERS */
+.section{padding:48px 0 24px}
+.section-title{font-size:11px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:3px;margin-bottom:8px}
+.section h2{font-size:28px;font-weight:800;margin-bottom:8px}
+.section .sub{font-size:14px;color:#888;max-width:700px}
+hr{border:none;border-top:1px solid var(--border);margin:0}
+
+/* HOW TO USE */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:24px}
+.step{background:var(--card);border-radius:12px;padding:24px;border-top:3px solid var(--gold)}
+.step .n{font-size:32px;font-weight:900;color:var(--gold);margin-bottom:8px}
+.step h4{font-weight:700;margin-bottom:6px;font-size:13px}
+.step p{font-size:12px;color:#999;line-height:1.6}
+
+/* RULE BOX */
+.rule-box{background:rgba(255,85,85,.06);border:1px solid rgba(255,85,85,.2);border-radius:12px;padding:24px 28px;margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.rule-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.rule-col.no h4{color:var(--red)}
+.rule-col.yes h4{color:#28c850}
+.rule-col ul{list-style:none;font-size:13px;color:#ccc;line-height:1.9}
+.rule-col.no ul li::before{content:'❌ ';font-size:11px}
+.rule-col.yes ul li::before{content:'✅ ';font-size:11px}
+
+/* TIER HEADERS */
+.tier-header{display:flex;align-items:center;gap:16px;padding:20px 24px;border-radius:12px;margin:32px 0 16px}
+.tier-header.t1{background:rgba(255,85,85,.08);border-left:4px solid var(--red)}
+.tier-header.t2{background:rgba(212,168,67,.07);border-left:4px solid var(--gold)}
+.tier-header.t3{background:rgba(0,180,216,.07);border-left:4px solid var(--teal)}
+.tier-header h3{font-size:18px;font-weight:800}
+.tier-header .meta{font-size:12px;color:#888;margin-top:2px}
+.tier-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px}
+.badge-red{background:rgba(255,85,85,.15);color:var(--red);border:1px solid rgba(255,85,85,.3)}
+.badge-gold{background:rgba(212,168,67,.12);color:var(--gold);border:1px solid rgba(212,168,67,.3)}
+.badge-teal{background:rgba(0,180,216,.1);color:var(--teal);border:1px solid rgba(0,180,216,.3)}
+.badge-green{background:rgba(40,200,80,.1);color:#28c850;border:1px solid rgba(40,200,80,.3)}
+.badge-gray{background:rgba(255,255,255,.06);color:#aaa;border:1px solid rgba(255,255,255,.1)}
+
+/* CREATOR TABLE */
+.creator-table{width:100%;border-collapse:collapse;margin-top:8px}
+.creator-table thead th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#666;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.creator-table tbody tr{border-bottom:1px solid var(--border);transition:.15s}
+.creator-table tbody tr:hover{background:rgba(255,255,255,.025)}
+.creator-table td{padding:14px;vertical-align:middle}
+.creator-table td.name{font-weight:700;font-size:13px;color:var(--white)}
+.creator-table td.name .bio{font-size:11px;color:#666;font-weight:400;margin-top:2px}
+.creator-table td .handle{font-size:12px;font-weight:700;color:var(--gold)}
+.creator-table td .ig{font-size:10px;color:#555;margin-top:2px}
+.creator-table td .ig a{color:#555}
+.creator-table td .ig a:hover{color:var(--teal)}
+.creator-table td.reach{font-size:13px;font-weight:700;color:var(--white)}
+.creator-table td.template span{display:inline-block;background:rgba(0,180,216,.1);color:var(--teal);border:1px solid rgba(0,180,216,.3);border-radius:6px;padding:3px 10px;font-size:11px;font-weight:600}
+.creator-table td.notes{font-size:11px;color:#888;max-width:200px;line-height:1.5}
+.creator-table td.approach{font-size:11px;color:#ccc}
+
+/* TEMPLATES SECTION */
+.template-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.tmpl{background:var(--card);border-radius:14px;padding:28px;border-top:3px solid var(--gold)}
+.tmpl.arabic{border-top-color:var(--teal)}
+.tmpl.paid{border-top-color:#e040fb}
+.tmpl.followup{border-top-color:#ff7043}
+.tmpl h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.tmpl .when{font-size:11px;color:#666;margin-bottom:16px}
+.tmpl .body{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:18px;font-size:12px;color:#ccc;line-height:1.8;white-space:pre-wrap;font-family:'Inter',sans-serif}
+.tmpl .var{color:var(--gold);font-weight:700}
+
+/* TRACKER */
+.tracker-table{width:100%;border-collapse:collapse;margin-top:16px}
+.tracker-table th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#666;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);background:var(--card)}
+.tracker-table td{padding:14px;border-bottom:1px solid var(--border);font-size:12px;color:#ccc;vertical-align:middle}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.dot-gray{background:#444}.dot-gold{background:var(--gold)}.dot-green{background:#28c850}.dot-red{background:var(--red)}.dot-blue{background:var(--teal)}.dot-orange{background:#ff7043}
+.status-pill{display:inline-block;padding:3px 10px;border-radius:10px;font-size:10px;font-weight:600;letter-spacing:.3px}
+.sp-pending{background:rgba(68,68,68,.3);color:#888;border:1px solid #333}
+.sp-contacted{background:rgba(212,168,67,.12);color:var(--gold);border:1px solid rgba(212,168,67,.3)}
+.sp-confirmed{background:rgba(40,200,80,.12);color:#28c850;border:1px solid rgba(40,200,80,.3)}
+.sp-declined{background:rgba(255,85,85,.12);color:var(--red);border:1px solid rgba(255,85,85,.3)}
+
+/* CONTENT BRIEF */
+.brief-section{background:var(--card);border-radius:14px;padding:36px;margin-top:24px;border:1px solid var(--border)}
+.brief-section h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:12px;margin-top:24px}
+.brief-section h4:first-child{margin-top:0}
+.brief-section p,.brief-section li{font-size:13px;color:#ccc;line-height:1.8}
+.brief-section ul{list-style:none;padding:0}
+.brief-section ul li::before{content:'▸ ';color:var(--gold)}
+.deliverable-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.deliverable-row:last-child{border-bottom:none}
+.deliverable-row .icon{font-size:18px;min-width:28px}
+.deliverable-row .txt{font-size:12px;color:#ccc;line-height:1.5}
+.deliverable-row .txt strong{color:#fff;display:block;font-size:13px;margin-bottom:2px}
+
+/* PRINT */
+@media print{
+  .topbar,.print-btn{display:none!important}
+  .page{padding:0 16px}
+  .creator-table tbody tr{page-break-inside:avoid}
+  .tier-header{page-break-after:avoid}
+  .template-grid{grid-template-columns:1fr}
+  body{background:#fff!important;color:#000!important}
+  .cover{background:#fff}
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+@media(max-width:768px){
+  .template-grid{grid-template-columns:1fr}
+  .rule-box{grid-template-columns:1fr}
+  .stats-row{gap:20px}
+  .steps{grid-template-columns:1fr 1fr}
+  .creator-table td.notes{display:none}
+  .topbar nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">⚙️ TiKiT × OKX | OUTREACH GUIDE</div>
+  <nav>
+    <a href="#how-to">How To Use</a>
+    <a href="#tier1">Priority 15</a>
+    <a href="#tier2">Wave 2</a>
+    <a href="#tier3">Community</a>
+    <a href="#templates">Templates</a>
+    <a href="#tracker">Tracker</a>
+    <a href="#brief">Content Brief</a>
+  </nav>
+  <button class="print-btn" onclick="window.print()">🖨 Print / PDF</button>
+</div>
+
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:3px;margin-bottom:16px">TiKiT Agency — Confidential | For Alaa's Team Only</div>
+  <h1><span style="color:var(--gold)">OKX</span> × <span style="color:var(--teal)">Dubai Cares</span><br>Creator Outreach Guide</h1>
+  <p>Ramadan 2026 — All creators, all templates, all instructions. Start outreach TODAY.</p>
+  <div class="stats-row">
+    <div class="stat"><div class="n">73</div><div class="l">Total Creators</div></div>
+    <div class="stat"><div class="n">15</div><div class="l">Priority Wave</div></div>
+    <div class="stat"><div class="n">17</div><div class="l">OKX Pre-Approved</div></div>
+    <div class="stat"><div class="n">$30K</div><div class="l">Creator Budget</div></div>
+    <div class="stat"><div class="n">50M+</div><div class="l">Total Reach</div></div>
+  </div>
+  <div style="margin-top:32px;padding:16px 24px;background:rgba(255,85,85,.08);border:1px solid rgba(255,85,85,.2);border-radius:10px;display:inline-block">
+    <span style="color:var(--red);font-weight:700;font-size:13px">⚡ RAMADAN IS LIVE — Start outreach immediately. Every day counts.</span>
+  </div>
+  <div style="margin-top:28px;font-size:13px;color:#555">
+    Campaign link: <a href="https://okx.com/en-ae/campaigns/dubai-cares-ramadan" target="_blank">okx.com/en-ae/campaigns/dubai-cares-ramadan</a>
+  </div>
+</div>
+
+<!-- HOW TO USE -->
+<div class="section" id="how-to">
+  <div class="section-title">Getting Started</div>
+  <h2>How to Use This Guide</h2>
+  <div class="sub">Follow this sequence to activate all 73 creators efficiently.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <h4>Start with 🔴 Priority 15</h4>
+      <p>These are the highest-reach creators. DM or email them TODAY. Use Template T1 (pro-bono) first. Go to T2 (paid) only if they ask about fees.</p>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <h4>Match the right template</h4>
+      <p>Each creator row shows which template to use. Arabic creators get T3. Follow-up after 48h with T4. Never skip the follow-up.</p>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <h4>Log every response</h4>
+      <p>Use the Tracker section. Update status for every creator. Confirmed = send them the Content Brief. Declined = move on, no negotiation.</p>
+    </div>
+    <div class="step">
+      <div class="n">4</div>
+      <h4>Send the Content Brief</h4>
+      <p>Once confirmed, send creators the Content Brief (Section 7 of this doc). Don't let them go off-script — it must be approved before posting.</p>
+    </div>
+    <div class="step" style="border-top-color:var(--red)">
+      <div class="n" style="color:var(--red)">!</div>
+      <h4>OKX Approval Check</h4>
+      <p>For creators NOT on the OKX pre-approved list, flag to Thomas before posting. OKX has final say on all content. Never confirm a creator as "live" without OKX sign-off.</p>
+    </div>
+  </div>
+  <div class="rule-box">
+    <div class="rule-col no">
+      <h4>❌ Never Say</h4>
+      <ul>
+        <li>"Crypto promotion"</li>
+        <li>"Trading platform"</li>
+        <li>"OKX exchange"</li>
+        <li>"Invest / investments"</li>
+        <li>"Token / blockchain"</li>
+        <li>"Buy / sell crypto"</li>
+      </ul>
+    </div>
+    <div class="rule-col yes">
+      <h4>✅ Always Say</h4>
+      <ul>
+        <li>"Charity campaign"</li>
+        <li>"CSR initiative"</li>
+        <li>"Ramadan giving"</li>
+        <li>"Dubai Cares partnership"</li>
+        <li>"School kits for children"</li>
+        <li>"OKX community giving back"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<hr>
+
+<!-- TIER 1 -->
+<div class="section" id="tier1">
+  <div class="section-title">Wave 1</div>
+  <h2>🔴 Priority 15 — Activate First</h2>
+  <div class="sub">Highest reach, strongest brand fit. Contact all 15 simultaneously TODAY. Target: confirmed within 72 hours.</div>
+
+  <div class="tier-header t1">
+    <div>
+      <h3>Priority Wave — 15 Creators</h3>
+      <div class="meta">50M+ combined reach · OKX-approved + our strong picks · DM + email outreach</div>
+    </div>
+    <span class="tier-badge badge-red">🔴 START TODAY</span>
+  </div>
+
+  <table class="creator-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Creator</th>
+        <th>Handle</th>
+        <th>Reach</th>
+        <th>Status</th>
+        <th>Approach</th>
+        <th>Template</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td class="name">Lojain Omran<div class="bio">Saudi lifestyle mega-influencer</div></td>
+        <td><div class="handle">@lojain_omran</div><div class="ig"><a href="https://www.instagram.com/lojain_omran/" target="_blank">↗ instagram.com/lojain_omran</a></div></td>
+        <td class="reach">11.7M</td>
+        <td><span class="tier-badge badge-green">✅ OKX Approved</span></td>
+        <td class="approach">Via agent / formal email</td>
+        <td class="template"><span>T1</span> <span>T3-AR</span></td>
+        <td class="notes">⭐ TOP PRIORITY. OKX pre-approved. Reach agent not DM. Saudi audience = Ramadan goldmine.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class="name">Mustafa Agha<div class="bio">MBC sports journalist & presenter</div></td>
+        <td><div class="handle">@musta_agha</div><div class="ig"><a href="https://www.instagram.com/musta_agha/" target="_blank">↗ instagram.com/musta_agha</a></div></td>
+        <td class="reach">4.5M</td>
+        <td><span class="tier-badge badge-teal">📋 OKX Listed</span></td>
+        <td class="approach">Formal email via MBC agent</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">MBC presenter — formal only. Don't DM cold.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class="name">Khalid Al Ameri<div class="bio">Emirati entrepreneur & storyteller</div></td>
+        <td><div class="handle">@khalidalameri</div><div class="ig"><a href="https://www.instagram.com/khalidalameri/" target="_blank">↗ instagram.com/khalidalameri</a></div></td>
+        <td class="reach">3M</td>
+        <td><span class="tier-badge badge-gold">⭐ Our Pick</span></td>
+        <td class="approach">DM + email</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">Lead with Dubai Cares story angle. Extremely cause-aligned. Mention school kits specifically.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class="name">Anas Bukhash<div class="bio">Emirati entrepreneur, #ABtalks host</div></td>
+        <td><div class="handle">@ANASBOUKHASH</div><div class="ig"><a href="https://www.instagram.com/ANASBOUKHASH/" target="_blank">↗ instagram.com/ANASBOUKHASH</a></div></td>
+        <td class="reach">3M</td>
+        <td><span class="tier-badge badge-green">✅ OKX Approved</span></td>
+        <td class="approach">DM direct</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">Frame as "story worth telling" — ABtalks brand. He values narrative over promo.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class="name">Sham Idrees<div class="bio">UAE family & lifestyle creator</div></td>
+        <td><div class="handle">@shamidrees</div><div class="ig"><a href="https://www.instagram.com/shamidrees/" target="_blank">↗ instagram.com/shamidrees</a></div></td>
+        <td class="reach">2M+</td>
+        <td><span class="tier-badge badge-gold">⭐ Our Pick</span></td>
+        <td class="approach">DM direct</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">Family man — Ramadan + children angle is natural fit. Easy pro-bono.</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class="name">Mohammad Galadari<div class="bio">UAE crypto KOL & campaign anchor</div></td>
+        <td><div class="handle">@thisisgaladari</div><div class="ig"><a href="https://www.instagram.com/thisisgaladari/" target="_blank">↗ instagram.com/thisisgaladari</a></div></td>
+        <td class="reach">888K</td>
+        <td><span class="tier-badge badge-gold">⭐ Our Pick</span></td>
+        <td class="approach">DM direct</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">Frame as "OKX giving back to the crypto community." Needs OKX explicit approval before activation.</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class="name">Mohammed Alsaadi<div class="bio">Arab crypto KOL — MEBA Top 4</div></td>
+        <td><div class="handle">@xaex</div><div class="ig"><a href="https://www.instagram.com/xaex/" target="_blank">↗ instagram.com/xaex</a></div></td>
+        <td class="reach">784K</td>
+        <td><span class="tier-badge badge-gold">⭐ Our Pick</span></td>
+        <td class="approach">DM direct</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">UAE Arab crypto audience. Needs OKX explicit approval before activation.</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class="name">Nourhan Elgouhary<div class="bio">Dubai hijabi lifestyle, Ramadan audience</div></td>
+        <td><div class="handle">@nourhanelgouhary</div><div class="ig"><a href="https://www.instagram.com/nourhanelgouhary/" target="_blank">↗ instagram.com/nourhanelgouhary</a></div></td>
+        <td class="reach">710K</td>
+        <td><span class="tier-badge badge-gold">⭐ Our Pick</span></td>
+        <td class="approach">DM direct</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">Perfect Ramadan fit — modest content, Arab female audience, Dubai-based.</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class="name">Amrita Sethi<div class="bio">UAE NFT artist & creative influencer</div></td>
+        <td><div class="handle">@art.by.amrita</div><div class="ig"><a href="https://www.instagram.com/art.by.amrita/" target="_blank">↗ instagram.com/art.by.amrita</a></div></td>
+        <td class="reach">675K</td>
+        <td><span class="tier-badge badge-gold">⭐ Our Pick</span></td>
+        <td class="approach">DM direct</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">Digital art + charity angle. "Art for giving" framing. OKX approval needed.</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class="name">Haifa Beseisso (Fly With Haifa)<div class="bio">Palestinian travel influencer</div></td>
+        <td><div class="handle">@flywithhaifa</div><div class="ig"><a href="https://www.instagram.com/flywithhaifa/" target="_blank">↗ instagram.com/flywithhaifa</a></div></td>
+        <td class="reach">500K+</td>
+        <td><span class="tier-badge badge-teal">📋 OKX Listed</span></td>
+        <td class="approach">DM direct</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">Palestinian — Dubai Cares education/children angle resonates deeply. High pro-bono chance.</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class="name">Mahira Abdelaziz<div class="bio">Emirati media personality</div></td>
+        <td><div class="handle">@mahiraabdelaziz</div><div class="ig"><a href="https://www.instagram.com/mahiraabdelaziz/" target="_blank">↗ instagram.com/mahiraabdelaziz</a></div></td>
+        <td class="reach">—</td>
+        <td><span class="tier-badge badge-green">✅ OKX Approved</span></td>
+        <td class="approach">DM in Arabic</td>
+        <td class="template"><span>T3-AR</span></td>
+        <td class="notes">Emirati — Arabic DM only. Very formal tone.</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class="name">Mayssoun Azzam<div class="bio">Al Arabiya News anchor, journalist</div></td>
+        <td><div class="handle">@mayssounazzam</div><div class="ig"><a href="https://www.instagram.com/mayssounazzam/" target="_blank">↗ instagram.com/mayssounazzam</a></div></td>
+        <td class="reach">—</td>
+        <td><span class="tier-badge badge-green">✅ OKX Approved</span></td>
+        <td class="approach">Formal email to Al Arabiya PR</td>
+        <td class="template"><span>T3-AR</span></td>
+        <td class="notes">News anchor — maximum formality. Email via Al Arabiya channel. Don't DM cold.</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class="name">Tapas Mohanta<div class="bio">India/UAE expat crypto creator</div></td>
+        <td><div class="handle">@legendoftrading</div><div class="ig"><a href="https://www.instagram.com/legendoftrading/" target="_blank">↗ instagram.com/legendoftrading</a></div></td>
+        <td class="reach">238K</td>
+        <td><span class="tier-badge badge-gold">⭐ Our Pick</span></td>
+        <td class="approach">DM direct</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">Expat community bridge. South Asian audience in UAE. OKX approval needed.</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class="name">Matthias Mende<div class="bio">UAE startup & crypto community</div></td>
+        <td><div class="handle">@mende</div><div class="ig"><a href="https://www.instagram.com/mende/" target="_blank">↗ instagram.com/mende</a></div></td>
+        <td class="reach">203K</td>
+        <td><span class="tier-badge badge-gold">⭐ Our Pick</span></td>
+        <td class="approach">DM direct</td>
+        <td class="template"><span>T1</span></td>
+        <td class="notes">Pre-brief content review required (last 30 days). OKX approval needed.</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class="name">Maitha Al Hashemi<div class="bio">Emirati lifestyle & culture</div></td>
+        <td><div class="handle">@maithav</div><div class="ig"><a href="https://www.instagram.com/maithav/" target="_blank">↗ instagram.com/maithav</a></div></td>
+        <td class="reach">—</td>
+        <td><span class="tier-badge badge-green">✅ OKX Approved</span></td>
+        <td class="approach">DM in Arabic</td>
+        <td class="template"><span>T3-AR</span></td>
+        <td class="notes">Emirati cultural fit. Arabic DM. Ramadan charity = natural alignment.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<hr>
+
+<!-- TIER 2 -->
+<div class="section" id="tier2">
+  <div class="section-title">Wave 2</div>
+  <h2>🟡 Mid-Range — Activate in Parallel</h2>
+  <div class="sub">Send outreach to Wave 2 simultaneously with Wave 1. No need to wait for Wave 1 confirmations first.</div>
+
+  <div class="tier-header t2">
+    <div>
+      <h3>Mid-Range Wave — 20 Creators</h3>
+      <div class="meta">Mostly OKX pre-approved · Mix of lifestyle, Arabic, food, community · DM-first approach</div>
+    </div>
+    <span class="tier-badge badge-gold">🟡 SAME DAY</span>
+  </div>
+
+  <table class="creator-table">
+    <thead>
+      <tr><th>#</th><th>Creator</th><th>Handle</th><th>Status</th><th>Approach</th><th>Template</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>16</td><td class="name">Mohamed S Thani<div class="bio">UAE lifestyle</div></td><td><div class="handle">@mthani1</div><div class="ig"><a href="https://www.instagram.com/mthani1/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">UAE lifestyle, general audience</td></tr>
+      <tr><td>17</td><td class="name">Haya Kaabar (TheDubaiList)<div class="bio">Dubai dining & lifestyle blogger</div></td><td><div class="handle">@thedubailist</div><div class="ig"><a href="https://www.instagram.com/thedubailist/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Local Dubai community audience</td></tr>
+      <tr><td>18</td><td class="name">Yousef Alkaabi<div class="bio">Arabic content creator, UAE</div></td><td><div class="handle">@yousef_alkaabi</div><div class="ig"><a href="https://www.instagram.com/yousef_alkaabi/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">Arabic DM</td><td class="template"><span>T3-AR</span></td><td class="notes">Arabic content only. Strong UAE Arabic audience.</td></tr>
+      <tr><td>19</td><td class="name">Live With Aziz<div class="bio">Financial auditor + food/lifestyle</div></td><td><div class="handle">@livewithaziz</div><div class="ig"><a href="https://www.instagram.com/livewithaziz/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">⭐ Finance + charity = PERFECT OKX fit. Mention "financial inclusion" angle. High priority within Wave 2.</td></tr>
+      <tr><td>20</td><td class="name">Anthony Rahayel (No Garlic No Onions)<div class="bio">Lebanese culinary mega-influencer</div></td><td><div class="handle">@nogarlicnoonions</div><div class="ig"><a href="https://www.instagram.com/nogarlicnoonions/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">DM + email</td><td class="template"><span>T1</span></td><td class="notes">Major Lebanese food influencer. Wide Arab diaspora reach.</td></tr>
+      <tr><td>21</td><td class="name">Aziz Almarzouqi (Fex)<div class="bio">Emirati social media personality</div></td><td><div class="handle">@fex</div><div class="ig"><a href="https://www.instagram.com/fex/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">Arabic DM</td><td class="template"><span>T3-AR</span></td><td class="notes">Young Emirati audience. Fun, approachable content style.</td></tr>
+      <tr><td>22</td><td class="name">Miled Rahal<div class="bio">Lebanese lifestyle & fashion</div></td><td><div class="handle">@miledrahal</div><div class="ig"><a href="https://www.instagram.com/miledrahal/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Clean content, good Lebanese audience reach</td></tr>
+      <tr><td>23</td><td class="name">Ali &amp; Walaa<div class="bio">Lebanese couple, family lifestyle</div></td><td><div class="handle">@aliandwalaa</div><div class="ig"><a href="https://www.instagram.com/aliandwalaa/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Couple account — Ramadan family giving angle works perfectly</td></tr>
+      <tr><td>24</td><td class="name">Moayad AlSawaf (More Cravings)<div class="bio">UAE fine dining reviewer</div></td><td><div class="handle">@moayad.alsawaf</div><div class="ig"><a href="https://www.instagram.com/moayad.alsawaf/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Upscale UAE audience. Iftar + charity angle.</td></tr>
+      <tr><td>25</td><td class="name">Taim AlFalasi<div class="bio">UAE travel, food & lifestyle</div></td><td><div class="handle">@taimalfalasi</div><div class="ig"><a href="https://www.instagram.com/taimalfalasi/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">OKX approved. UAE local audience.</td></tr>
+      <tr><td>26</td><td class="name">Megan Al Marzooqi (Real Mums UAE)<div class="bio">Founder, Real Mums UAE</div></td><td><div class="handle">@realmumsuae</div><div class="ig"><a href="https://www.instagram.com/realmumsuae/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Mothers community — school kits angle is deeply resonant</td></tr>
+      <tr><td>27</td><td class="name">Mohamed Zidan<div class="bio">Egyptian footballer, lifestyle</div></td><td><div class="handle">@Zidan_DXB</div><div class="ig"><a href="https://www.instagram.com/Zidan_DXB/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Egyptian footballer with large Arab sports audience</td></tr>
+      <tr><td>28</td><td class="name">Ali F. Mostafa<div class="bio">Emirati filmmaker & director</div></td><td><div class="handle">@alimostafa</div><div class="ig"><a href="https://www.instagram.com/alimostafa/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="approach">DM + email</td><td class="template"><span>T1</span></td><td class="notes">Emirati creative community. "Film a story of giving" angle.</td></tr>
+      <tr><td>29</td><td class="name">Dima Al Sharif<div class="bio">Food expert, Middle Eastern cuisine</div></td><td><div class="handle">@dimasharifonline</div><div class="ig"><a href="https://www.instagram.com/dimasharifonline/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Food + Ramadan iftar content angle</td></tr>
+      <tr><td>30</td><td class="name">Zozo Kahramana<div class="bio">Humor & lifestyle creator</div></td><td><div class="handle">@zozokahramana</div><div class="ig"><a href="https://www.instagram.com/zozokahramana/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Humor approach — keep the brief clear and tone-controlled</td></tr>
+      <tr><td>31</td><td class="name">Daan de Rover (CryptoRover)<div class="bio">Crypto analyst & trader</div></td><td><div class="handle">@cryptorover</div><div class="ig"><a href="https://www.instagram.com/cryptorover/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-gold">⭐ Our Pick</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Western crypto audience. Needs OKX approval.</td></tr>
+      <tr><td>32</td><td class="name">Lilly Douse<div class="bio">UAE lifestyle & crypto</div></td><td><div class="handle">@lillydouse</div><div class="ig"><a href="https://www.instagram.com/lillydouse/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-gold">⭐ Our Pick</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">⚠️ CONDITIONAL — brief must specify professional styling only. No beach/travel content.</td></tr>
+      <tr><td>33</td><td class="name">Rama Murad<div class="bio">Lifestyle & fashion creator</div></td><td><div class="handle">@raamamurad</div><div class="ig"><a href="https://www.instagram.com/raamamurad/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Lifestyle audience, general UAE reach</td></tr>
+      <tr><td>34</td><td class="name">Farah Abdulhamed<div class="bio">Jordanian beauty & lifestyle</div></td><td><div class="handle">@farahabdulhamed</div><div class="ig"><a href="https://www.instagram.com/farahabdulhamed/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">Arab female audience. Beauty × charity angle.</td></tr>
+      <tr><td>35</td><td class="name">Maria Frackowiak<div class="bio">UAE micro lifestyle creator</div></td><td><div class="handle">@merys_way</div><div class="ig"><a href="https://www.instagram.com/merys_way/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-gold">⭐ Our Pick</span></td><td class="approach">DM</td><td class="template"><span>T1</span></td><td class="notes">⚠️ CONDITIONAL — verify last 60 days of content before confirming</td></tr>
+    </tbody>
+  </table>
+</div>
+<hr>
+
+<!-- TIER 3 -->
+<div class="section" id="tier3">
+  <div class="section-title">Wave 3</div>
+  <h2>🟢 Community Wave — 38 Creators</h2>
+  <div class="sub">Broad community reach — food, lifestyle, expat, and niche creators. These amplify the campaign into micro-communities. Send outreach after Wave 1 confirmations start coming in.</div>
+
+  <div class="tier-header t3">
+    <div>
+      <h3>Community Wave — 38 Creators</h3>
+      <div class="meta">Food bloggers · Expat communities · Niche lifestyle · Brand media partners</div>
+    </div>
+    <span class="tier-badge badge-teal">🟢 WAVE 3</span>
+  </div>
+
+  <table class="creator-table">
+    <thead>
+      <tr><th>#</th><th>Creator</th><th>Handle / IG</th><th>Status</th><th>Template</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>36</td><td class="name">Aziza Faryal (CryptoGirlUAE)<div class="bio">UAE female crypto creator</div></td><td><div class="handle">@cryptogirluae</div><div class="ig"><a href="https://www.instagram.com/cryptogirluae/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-gold">⭐ Our Pick</span></td><td class="template"><span>T1</span></td><td class="notes">⚠️ Handle needs verification — confirm it's correct before DM</td></tr>
+      <tr><td>37</td><td class="name">Zahra Abdalla (Cooking with Zahra)<div class="bio">Food blogger & cookbook author</div></td><td><div class="handle">@cookingwithzahra</div><div class="ig"><a href="https://www.instagram.com/cookingwithzahra/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Food × Ramadan iftar = perfect organic fit</td></tr>
+      <tr><td>38</td><td class="name">Lisa Helly Obrien (MyLittleLoves)<div class="bio">Family & parenting blogger</div></td><td><div class="handle">@MyLittleLovesBlog</div><div class="ig"><a href="https://www.instagram.com/MyLittleLovesBlog/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Parent audience — school kits for children resonates deeply</td></tr>
+      <tr><td>39</td><td class="name">Alex Augusti (JustFoodDXB)<div class="bio">Dubai casual dining influencer</div></td><td><div class="handle">@justfooddxb</div><div class="ig"><a href="https://www.instagram.com/justfooddxb/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Dubai local food audience</td></tr>
+      <tr><td>40</td><td class="name">Lavina Israni<div class="bio">UAE content creator & food writer</div></td><td><div class="handle">@lavinaisranicom</div><div class="ig"><a href="https://www.instagram.com/lavinaisranicom/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Food & lifestyle UAE</td></tr>
+      <tr><td>41</td><td class="name">Karen Mcclean (Secret Squirrel Food)<div class="bio">Award-winning food blogger</div></td><td><div class="handle">@secretsquirrelfood</div><div class="ig"><a href="https://www.instagram.com/secretsquirrelfood/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Food blogger, Australian-Dubai audience</td></tr>
+      <tr><td>42</td><td class="name">Mona Essawi<div class="bio">Healthy lifestyle & nutrition</div></td><td><div class="handle">@cookingis.art</div><div class="ig"><a href="https://www.instagram.com/cookingis.art/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">UAE/Egypt healthy lifestyle audience</td></tr>
+      <tr><td>43</td><td class="name">Nahla Ibrahim<div class="bio">Saudi/Egypt lifestyle influencer</div></td><td><div class="handle">@nahlaaibrahiim</div><div class="ig"><a href="https://www.instagram.com/nahlaaibrahiim/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Saudi-Egypt audience — Ramadan giving angle is natural</td></tr>
+      <tr><td>44</td><td class="name">Virdah Javed Khan (Mom in Dubai)<div class="bio">Pakistan-UAE food, fashion, lifestyle</div></td><td><div class="handle">@mom_in_dubai</div><div class="ig"><a href="https://www.instagram.com/mom_in_dubai/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">South Asian mom expat community</td></tr>
+      <tr><td>45</td><td class="name">Aaisha<div class="bio">India-UAE food, fashion, lifestyle</div></td><td><div class="handle">@dubai_blogger__</div><div class="ig"><a href="https://www.instagram.com/dubai_blogger__/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Indian expat community Dubai</td></tr>
+      <tr><td>46</td><td class="name">Rafeez Ahmed (Tablee For One)<div class="bio">UAE food blogger, India</div></td><td><div class="handle">@tableeforone</div><div class="ig"><a href="https://www.instagram.com/tableeforone/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">South Asian UAE food audience</td></tr>
+      <tr><td>47</td><td class="name">Safia Mansoor (Cup Tales)<div class="bio">Food & travel, India-UAE</div></td><td><div class="handle">@cuptaleswithsafia</div><div class="ig"><a href="https://www.instagram.com/cuptaleswithsafia/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Indian expat food/travel niche</td></tr>
+      <tr><td>48</td><td class="name">Ayshafarhana Tharammal<div class="bio">Social media influencer & YouTuber</div></td><td><div class="handle">@ayeshas_kitche_n</div><div class="ig"><a href="https://www.instagram.com/ayeshas_kitche_n/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">YouTube + IG cross-posting opportunity</td></tr>
+      <tr><td>49</td><td class="name">Olena<div class="bio">UAE hidden gem restaurants</div></td><td><div class="handle">@health_and_beauty_uae</div><div class="ig"><a href="https://www.instagram.com/health_and_beauty_uae/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Niche UAE food community</td></tr>
+      <tr><td>50</td><td class="name">Sultan Kayed<div class="bio">Chef & food blogger UAE</div></td><td><div class="handle">@sultan.eats</div><div class="ig"><a href="https://www.instagram.com/sultan.eats/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Chef angle — Ramadan food giving</td></tr>
+      <tr><td>51</td><td class="name">Pooja Varyani (Foodish Vibes)<div class="bio">Vegetarian food vlogger, India</div></td><td><div class="handle">@foodishvibes</div><div class="ig"><a href="https://www.instagram.com/foodishvibes/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Indian veg community UAE</td></tr>
+      <tr><td>52</td><td class="name">Anushree Bagzai<div class="bio">Travel, food, lifestyle India-Dubai</div></td><td><div class="handle">@anushreebagzai</div><div class="ig"><a href="https://www.instagram.com/anushreebagzai/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Indian expat travel/lifestyle Dubai</td></tr>
+      <tr><td>53</td><td class="name">Arpita Soni (Food Lore UAE)<div class="bio">Abu Dhabi food blogger, India</div></td><td><div class="handle">@foodloreuae</div><div class="ig"><a href="https://www.instagram.com/foodloreuae/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Abu Dhabi Indian expat community</td></tr>
+      <tr><td>54</td><td class="name">Jedax Foodtrip<div class="bio">Top Filipino influencer, UAE food</div></td><td><div class="handle">@jedax.foodtrip</div><div class="ig"><a href="https://www.instagram.com/jedax.foodtrip/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Filipino expat community UAE — large segment</td></tr>
+      <tr><td>55</td><td class="name">Syed Muhammad Shabi (Eat Sleep Repeat)<div class="bio">Pakistan food connoisseur UAE</div></td><td><div class="handle">@shaybishah</div><div class="ig"><a href="https://www.instagram.com/shaybishah/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Pakistani expat community UAE</td></tr>
+      <tr><td>56</td><td class="name">Aemen Aisha (Create With Aemen)<div class="bio">Lifestyle, food, activities Pakistan-UAE</div></td><td><div class="handle">@adventuresofaemen</div><div class="ig"><a href="https://www.instagram.com/adventuresofaemen/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Cross-community expat reach</td></tr>
+      <tr><td>57</td><td class="name">Danah Alshayji<div class="bio">Kuwaiti mom of three, Dubai lifestyle</div></td><td><div class="handle">@danaindxb</div><div class="ig"><a href="https://www.instagram.com/danaindxb/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Gulf mom audience — school kits angle very resonant</td></tr>
+      <tr><td>58</td><td class="name">Hupert Sepidnam (Mr. Taster)<div class="bio">International food blogger, Dubai</div></td><td><div class="handle">@mr.taster</div><div class="ig"><a href="https://www.instagram.com/mr.taster/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">UK-Dubai food blogger, diverse international audience</td></tr>
+      <tr><td>59</td><td class="name">Nawar H<div class="bio">Lifestyle & fashion creator</div></td><td><div class="handle">@nawar.h6</div><div class="ig"><a href="https://www.instagram.com/nawar.h6/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Lifestyle/fashion niche</td></tr>
+      <tr><td>60</td><td class="name">Firas Nour<div class="bio">Travel & adventure influencer</div></td><td><div class="handle">@firas.nour</div><div class="ig"><a href="https://www.instagram.com/firas.nour/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Travel adventure niche</td></tr>
+      <tr><td>61</td><td class="name">Nouran M. Fawzy<div class="bio">Food & lifestyle creator</div></td><td><div class="handle">@nmfeats</div><div class="ig"><a href="https://www.instagram.com/nmfeats/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Food lifestyle niche</td></tr>
+      <tr><td>62</td><td class="name">Lovin Dubai<div class="bio">Dubai lifestyle media outlet</div></td><td><div class="handle">@lovindubai</div><div class="ig"><a href="https://www.instagram.com/lovindubai/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Media outlet — email editorial team. Not DM.</td></tr>
+      <tr><td>63</td><td class="name">GRIT+TONIC<div class="bio">Fitness & wellness UAE</div></td><td><div class="handle">@gritandtonic</div><div class="ig"><a href="https://www.instagram.com/gritandtonic/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Wellness community — health + giving angle</td></tr>
+      <tr><td>64</td><td class="name">Rooted Regimen<div class="bio">Natural wellness brand UAE</div></td><td><div class="handle">@rootedregimen</div><div class="ig"><a href="https://www.instagram.com/rootedregimen/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Wellness brand, not creator — approach as brand partnership</td></tr>
+      <tr><td>65</td><td class="name">OutQore<div class="bio">UAE activities & events community</div></td><td><div class="handle">@outqore</div><div class="ig"><a href="https://www.instagram.com/outqore/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Community events — Ramadan charity event angle</td></tr>
+      <tr><td>66</td><td class="name">Al Oula Radio<div class="bio">UAE-based Arabic radio station</div></td><td><div class="handle">@aloulafm</div><div class="ig"><a href="https://www.instagram.com/aloulafm/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T3-AR</span></td><td class="notes">Radio media — email media/partnerships team. Ramadan radio = huge reach.</td></tr>
+      <tr><td>67</td><td class="name">UAE Barq<div class="bio">Arabic news outlet UAE</div></td><td><div class="handle">@uae_barq</div><div class="ig"><a href="https://www.instagram.com/uae_barq/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T3-AR</span></td><td class="notes">News outlet — email editorial. Arabic Ramadan charity news story.</td></tr>
+      <tr><td>68</td><td class="name">TFG 7 Emirates Cycle Challenge<div class="bio">UAE cycling initiative</div></td><td><div class="handle">@tfg7ecc</div><div class="ig"><a href="https://www.instagram.com/tfg7ecc/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Fitness/community — charity ride for school kits angle could work</td></tr>
+      <tr><td>69</td><td class="name">The National News<div class="bio">UAE English-language newspaper</div></td><td><div class="handle">@thenationalnews.com</div><div class="ig"><a href="https://www.instagram.com/thenationalnews.com/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-green">✅ OKX Approved</span></td><td class="template"><span>T1</span></td><td class="notes">⭐ Media partner, not creator. Email partnerships@thenational.ae for editorial coverage.</td></tr>
+      <tr><td>70</td><td class="name">DU Telecom<div class="bio">UAE telecommunications brand</div></td><td><div class="handle">@Du</div><div class="ig"><a href="https://www.instagram.com/Du/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Corporate brand — formal email to corporate communications. Large UAE reach.</td></tr>
+      <tr><td>71</td><td class="name">Etisalat (e&amp;)<div class="bio">UAE telecommunications brand</div></td><td><div class="handle">@etisalat</div><div class="ig"><a href="https://www.instagram.com/etisalat/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Corporate brand — CSR/charity angle may resonate as cross-brand partnership</td></tr>
+      <tr><td>72</td><td class="name">Natuzzi Italia Dubai<div class="bio">Italian furniture brand UAE</div></td><td><div class="handle">@natuzzi.uae</div><div class="ig"><a href="https://www.instagram.com/natuzzi.uae/" target="_blank">↗ IG</a></div></td><td><span class="tier-badge badge-teal">📋 OKX Listed</span></td><td class="template"><span>T1</span></td><td class="notes">Luxury brand — low fit for this campaign, low priority</td></tr>
+      <tr><td>73</td><td class="name">Mustafa Agha (duplicate — see #2)<div class="bio">Already listed in Priority 15</div></td><td colspan="4" style="color:#555;font-size:11px">See entry #2 in Priority 15 wave above</td></tr>
+    </tbody>
+  </table>
+</div>
+<hr>
+
+<!-- TEMPLATES -->
+<div class="section" id="templates">
+  <div class="section-title">Outreach Templates</div>
+  <h2>4 Templates — Ready to Copy & Send</h2>
+  <div class="sub">Use the template column in the roster to match each creator. Never improvise — stay on message.</div>
+
+  <div class="template-grid" style="margin-top:28px">
+    <!-- T1 -->
+    <div class="tmpl">
+      <h4>T1 — Pro-Bono English DM</h4>
+      <div class="when">Use for: Most creators · Send first, always · Instagram DM or WhatsApp</div>
+      <div class="body">Hi <span class="var">[Name]</span> 👋
+
+I'm reaching out from TiKiT, the influencer team managing OKX's Ramadan campaign with Dubai Cares & Volunteer Emirates.
+
+This Ramadan, OKX is donating <span class="var">AED 1,000,000</span> to provide <span class="var">10,000 school kits</span> to children in need. It's one of the most impactful CSR campaigns in the region this year.
+
+We'd love to invite you to be part of this — a single Reel or video + Story with campaign link. No brand talking points, no crypto content — just your voice behind a cause that matters.
+
+This is a pro-bono collaboration (CSR/charitable participation), and your name will be featured across OKX's regional campaign materials.
+
+Are you open to a quick 10-min call this week?
+
+Campaign: okx.com/en-ae/campaigns/dubai-cares-ramadan 🌙</div>
+    </div>
+
+    <!-- T2 -->
+    <div class="tmpl paid">
+      <h4>T2 — Paid (If They Ask About Fees)</h4>
+      <div class="when">Use ONLY when: T1 sent first AND creator/agent explicitly asks about compensation</div>
+      <div class="body">Hi <span class="var">[Manager/Name]</span>,
+
+Following up on the OKX × Dubai Cares Ramadan campaign — AED 1M donation → 10,000 school kits.
+
+We have creator compensation budget and would love to bring <span class="var">[Name]</span> on as a paid partner.
+
+Deliverables:
+- 1 × Reel or video (authentic, cause-driven)
+- 1 × Story with campaign link
+
+We're confirming roster this week. Could we get <span class="var">[Name]</span>'s rate card or set up a quick call today?
+
+Campaign brief available on request.
+
+— TiKiT Agency | On behalf of OKX UAE</div>
+    </div>
+
+    <!-- T3 -->
+    <div class="tmpl arabic">
+      <h4>T3 — Arabic DM 🇦🇪</h4>
+      <div class="when">Use for: Emirati creators, Arabic-first accounts, Gulf personalities</div>
+      <div class="body">السلام عليكم <span class="var">[الاسم]</span> 👋
+
+أتواصل معك من فريق TiKiT، المسؤول عن إدارة حملة OKX الرمضانية بالتعاون مع دبي كيرز ومتطوعو الإمارات.
+
+هذا الرمضان، تتبرع OKX بـ <span class="var">مليون درهم</span> لتوفير <span class="var">10,000 حقيبة مدرسية</span> للأطفال المحتاجين.
+
+نودّ دعوتك للمشاركة في هذه الحملة:
+• ريل أو فيديو قصير (بأسلوبك الخاص)
+• ستوري مع رابط الحملة
+
+المشاركة تطوعية (CSR)، وسيُذكر اسمك في مواد الحملة الإعلامية.
+
+هل يمكننا التحدث هذا الأسبوع؟ 🙏
+
+okx.com/en-ae/campaigns/dubai-cares-ramadan
+
+رمضان كريم 🌙</div>
+    </div>
+
+    <!-- T4 -->
+    <div class="tmpl followup">
+      <h4>T4 — Follow-Up (48–72h No Response)</h4>
+      <div class="when">Use for: Anyone who didn't reply to T1 or T3 within 48 hours · Send once only</div>
+      <div class="body">Hi <span class="var">[Name]</span> — quick follow-up on the OKX × Dubai Cares Ramadan campaign 🌙
+
+We're finalizing the creator roster this week — would love to include you.
+
+It's a fully charitable initiative — AED 1M → 10,000 school kits, no crypto talking points, just giving.
+
+Want me to send the full brief? Takes 2 minutes to read.
+
+Campaign: okx.com/en-ae/campaigns/dubai-cares-ramadan</div>
+    </div>
+  </div>
+</div>
+<hr>
+
+<!-- TRACKER -->
+<div class="section" id="tracker">
+  <div class="section-title">Outreach Tracker</div>
+  <h2>Response Log</h2>
+  <div class="sub">Update this table as you reach out. Print or share with the team.</div>
+
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 20px">
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px"><span class="status-pill sp-pending">Not Contacted</span></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px"><span class="status-pill sp-contacted">Contacted</span></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px"><span class="status-pill sp-confirmed">Confirmed</span></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px"><span class="status-pill sp-declined">Declined</span></div>
+  </div>
+
+  <table class="tracker-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Creator</th>
+        <th>Handle</th>
+        <th>Wave</th>
+        <th>Contacted</th>
+        <th>Response</th>
+        <th>Status</th>
+        <th>Notes / Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Lojain Omran</td><td>@lojain_omran</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>2</td><td>Mustafa Agha</td><td>@musta_agha</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>3</td><td>Khalid Al Ameri</td><td>@khalidalameri</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>4</td><td>Anas Bukhash</td><td>@ANASBOUKHASH</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>5</td><td>Sham Idrees</td><td>@shamidrees</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>6</td><td>Mohammad Galadari</td><td>@thisisgaladari</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>7</td><td>Mohammed Alsaadi</td><td>@xaex</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>8</td><td>Nourhan Elgouhary</td><td>@nourhanelgouhary</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>9</td><td>Amrita Sethi</td><td>@art.by.amrita</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>10</td><td>Haifa Beseisso</td><td>@flywithhaifa</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>11</td><td>Mahira Abdelaziz</td><td>@mahiraabdelaziz</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>12</td><td>Mayssoun Azzam</td><td>@mayssounazzam</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>13</td><td>Tapas Mohanta</td><td>@legendoftrading</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>14</td><td>Matthias Mende</td><td>@mende</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>15</td><td>Maitha Al Hashemi</td><td>@maithav</td><td>🔴 P1</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>16</td><td>Live With Aziz</td><td>@livewithaziz</td><td>🟡 P2</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>17</td><td>Anthony Rahayel</td><td>@nogarlicnoonions</td><td>🟡 P2</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>18</td><td>Megan Al Marzooqi</td><td>@realmumsuae</td><td>🟡 P2</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>19</td><td>Mohamed S Thani</td><td>@mthani1</td><td>🟡 P2</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr><td>20</td><td>Haya Kaabar</td><td>@thedubailist</td><td>🟡 P2</td><td>____/____</td><td></td><td><span class="status-pill sp-pending">Not Contacted</span></td><td></td></tr>
+      <tr style="color:#555;font-size:11px"><td colspan="8" style="padding:10px 14px;text-align:center">Rows 21–73 continue in the roster section above — print or use digital copy to track all creators</td></tr>
+    </tbody>
+  </table>
+</div>
+<hr>
+
+<!-- CONTENT BRIEF -->
+<div class="section" id="brief">
+  <div class="section-title">Content Brief Template</div>
+  <h2>Send This to Confirmed Creators</h2>
+  <div class="sub">Once a creator confirms participation, send them this brief. Do NOT let them post without it.</div>
+
+  <div class="brief-section">
+    <h4>Campaign Overview</h4>
+    <p>This Ramadan, <strong>OKX</strong> — in partnership with <strong>Dubai Cares</strong> and Volunteer Emirates — is donating <strong>AED 1,000,000</strong> to distribute <strong>10,000 school kits</strong> to children in need across the region.</p>
+    <p style="margin-top:8px">This is a 100% CSR/charitable campaign. You are participating as a community voice — not as a crypto promoter. Your content should feel <strong>personal, authentic, and cause-driven</strong>.</p>
+
+    <h4>Your Deliverables</h4>
+    <div class="deliverable-row">
+      <div class="icon">🎬</div>
+      <div class="txt"><strong>1 × Instagram Reel (60–90 seconds)</strong>Your authentic take on why this Ramadan cause matters to you. No script required — speak from the heart. Must include: mention of Dubai Cares + campaign link in caption.</div>
+    </div>
+    <div class="deliverable-row">
+      <div class="icon">📲</div>
+      <div class="txt"><strong>2 × Instagram Stories</strong>At least one Story must include the campaign link (link sticker or swipe-up). You can repost the Reel as a Story + add a link, or create fresh Stories about the cause.</div>
+    </div>
+
+    <h4>Campaign Link (add to every Story)</h4>
+    <p style="font-size:15px;color:var(--teal);font-weight:700">https://okx.com/en-ae/campaigns/dubai-cares-ramadan</p>
+
+    <h4>Hashtags (Maximum 2)</h4>
+    <p style="font-weight:700;font-size:15px;color:var(--gold)">#OKXDubaiCares &nbsp;&nbsp; #RamadanGiving</p>
+
+    <h4>Content Direction — DO SAY ✅</h4>
+    <ul>
+      <li>"Charity campaign" / "CSR initiative"</li>
+      <li>"Ramadan giving" / "giving back this Ramadan"</li>
+      <li>"Dubai Cares partnership" / "school kits for children"</li>
+      <li>"OKX community giving back"</li>
+      <li>Your personal story of giving or what this cause means to you</li>
+    </ul>
+
+    <h4>Content Direction — DO NOT SAY ❌</h4>
+    <ul>
+      <li>"Crypto promotion" / "trading platform" / "OKX exchange"</li>
+      <li>"Invest" / "buy" / "sell" / "token" / "blockchain"</li>
+      <li>Any financial advice or investment direction</li>
+      <li>Price predictions or market commentary</li>
+    </ul>
+
+    <h4>Disclosure Requirement (UAE VARA)</h4>
+    <p>If you are receiving compensation: your post <strong>must</strong> include <strong>#Ad</strong> or <strong>#Sponsored</strong> as required by UAE regulations. Pro-bono participants do not need to disclose. When in doubt, ask TiKiT before posting.</p>
+
+    <h4>Approval Process</h4>
+    <ul>
+      <li>All content must be shared with TiKiT for review <strong>before posting</strong></li>
+      <li>TiKiT reviews within 4 hours (business hours) / 12 hours (overnight)</li>
+      <li>OKX may request minor edits — this is standard, not personal</li>
+      <li>Once approved: post and tag <strong>@okx_official</strong></li>
+    </ul>
+
+    <h4>Posting Window</h4>
+    <ul>
+      <li>Optimal: <strong>7:00 PM – 10:00 PM UAE time</strong> (post-iftar engagement peak)</li>
+      <li>Avoid: 2 AM – 6 AM UAE (low engagement window)</li>
+      <li>Coordinate with TiKiT to avoid content clashing with other creators</li>
+    </ul>
+
+    <h4>Contact</h4>
+    <p>Any questions → contact your TiKiT point of contact directly on WhatsApp or email. We're responsive 7 days a week during Ramadan. 🌙</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:48px 0 24px;border-top:1px solid var(--border);margin-top:48px">
+  <div style="font-size:12px;color:#555;letter-spacing:2px;text-transform:uppercase">TiKiT Agency × Confidential × Ramadan 2026</div>
+  <div style="margin-top:8px;font-size:11px;color:#444">This document is for internal agency use only. Do not share with creators or third parties.</div>
+  <div style="margin-top:16px;font-size:13px;color:#666">Campaign: <a href="https://okx.com/en-ae/campaigns/dubai-cares-ramadan">okx.com/en-ae/campaigns/dubai-cares-ramadan</a></div>
+</div>
+
+</div><!-- /page -->
+
+</body>
+</html>
