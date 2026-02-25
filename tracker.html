@@ -59,9 +59,9 @@ a{color:var(--teal);text-decoration:none}
 .toggle-switch.on::after{left:16px}
 
 /* TABLE WRAPPER */
-.table-wrap{overflow-x:auto;padding:0 24px 24px}
+.table-wrap{overflow:auto;max-height:calc(100vh - 220px);padding:0 24px 24px}
 table{width:100%;border-collapse:collapse;min-width:1100px}
-thead th{padding:10px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);border-bottom:1px solid var(--border);position:sticky;top:56px;background:var(--bg);white-space:nowrap}
+thead th{padding:10px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10;white-space:nowrap}
 thead th.sortable{cursor:pointer}.thead th.sortable:hover{color:var(--gold)}
 tbody tr{border-bottom:1px solid var(--border);transition:.1s}
 tbody tr:hover{background:rgba(255,255,255,.02)}
