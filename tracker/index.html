@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OKX × Dubai Cares — Outreach Tracker</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0d14;--surface:#161622;--surface2:#1c1c2e;--border:rgba(255,255,255,.07);
+  --gold:#d4a843;--teal:#00b4d8;--red:#ff5555;--green:#28c850;--purple:#e040fb;--orange:#ff7043;
+  --text:#f0f0f0;--muted:#888;--dim:#555;
+}
+html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;min-height:100vh}
+a{color:var(--teal);text-decoration:none}
+
+/* TOP HEADER */
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:16px;height:56px;position:sticky;top:0;z-index:200}
+.topbar h1{font-size:14px;font-weight:800;color:var(--gold);white-space:nowrap}
+.topbar .subtitle{font-size:11px;color:var(--dim);white-space:nowrap}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.topbar-right .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* BUDGET BANNER */
+.budget-banner{background:linear-gradient(135deg,rgba(212,168,67,.1),rgba(0,180,216,.08));border-bottom:1px solid rgba(212,168,67,.15);padding:12px 24px;display:flex;gap:32px;align-items:center;flex-wrap:wrap}
+.bstat{display:flex;flex-direction:column;gap:2px}
+.bstat .val{font-size:20px;font-weight:800}
+.bstat .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+.bstat.gold .val{color:var(--gold)}
+.bstat.green .val{color:var(--green)}
+.bstat.red .val{color:var(--red)}
+.bstat.teal .val{color:var(--teal)}
+.budget-sep{width:1px;height:36px;background:var(--border)}
+
+/* CONTROLS BAR */
+.controls{padding:12px 24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface)}
+.search-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:13px;font-family:inherit;width:220px;outline:none}
+.search-box:focus{border-color:var(--gold)}
+.search-box::placeholder{color:var(--dim)}
+.filter-select{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-size:12px;font-family:inherit;cursor:pointer;outline:none}
+.filter-select:focus{border-color:var(--teal)}
+.btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:inherit;white-space:nowrap;transition:.15s}
+.btn-primary{background:var(--gold);color:#000}.btn-primary:hover{opacity:.85}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-danger{background:rgba(255,85,85,.1);color:var(--red);border:1px solid rgba(255,85,85,.2)}.btn-danger:hover{background:rgba(255,85,85,.2)}
+.btn-green{background:rgba(40,200,80,.1);color:var(--green);border:1px solid rgba(40,200,80,.2)}.btn-green:hover{background:rgba(40,200,80,.2)}
+.btn-teal{background:rgba(0,180,216,.1);color:var(--teal);border:1px solid rgba(0,180,216,.2)}.btn-teal:hover{background:rgba(0,180,216,.2)}
+.sep{width:1px;height:24px;background:var(--border)}
+.controls-right{margin-left:auto;display:flex;gap:8px}
+
+/* HIDDEN TOGGLE */
+.hidden-toggle{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);cursor:pointer;user-select:none}
+.toggle-switch{width:32px;height:18px;background:var(--surface2);border-radius:10px;position:relative;border:1px solid var(--border);transition:.2s}
+.toggle-switch.on{background:rgba(0,180,216,.3);border-color:var(--teal)}
+.toggle-switch::after{content:'';position:absolute;width:12px;height:12px;background:#fff;border-radius:50%;top:2px;left:2px;transition:.2s}
+.toggle-switch.on::after{left:16px}
+
+/* TABLE WRAPPER */
+.table-wrap{overflow-x:auto;padding:0 24px 24px}
+table{width:100%;border-collapse:collapse;min-width:1100px}
+thead th{padding:10px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);border-bottom:1px solid var(--border);position:sticky;top:56px;background:var(--bg);white-space:nowrap}
+thead th.sortable{cursor:pointer}.thead th.sortable:hover{color:var(--gold)}
+tbody tr{border-bottom:1px solid var(--border);transition:.1s}
+tbody tr:hover{background:rgba(255,255,255,.02)}
+tbody tr.hidden-row{opacity:.35}
+tbody td{padding:10px 10px;vertical-align:middle}
+
+/* CELL TYPES */
+.cell-name{font-weight:600;font-size:13px;max-width:160px}
+.cell-name .sub{font-size:10px;color:var(--muted);font-weight:400;margin-top:2px}
+.cell-handle{font-size:12px;color:var(--gold);font-weight:600;white-space:nowrap}
+.cell-handle a{color:var(--gold)}
+.cell-handle a:hover{text-decoration:underline}
+
+/* WAVE BADGES */
+.wave-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:.3px;white-space:nowrap}
+.wave-P1{background:rgba(255,85,85,.15);color:var(--red);border:1px solid rgba(255,85,85,.25)}
+.wave-P2{background:rgba(212,168,67,.12);color:var(--gold);border:1px solid rgba(212,168,67,.25)}
+.wave-P3{background:rgba(0,180,216,.1);color:var(--teal);border:1px solid rgba(0,180,216,.2)}
+
+/* STATUS SELECT */
+.status-select{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:12px;color:var(--text);font-family:inherit;cursor:pointer;outline:none;width:160px}
+.status-select:focus{border-color:var(--gold)}
+.status-select.status-confirmed{border-color:rgba(40,200,80,.5);color:var(--green);background:rgba(40,200,80,.08)}
+.status-select.status-paid{border-color:rgba(224,64,251,.5);color:var(--purple);background:rgba(224,64,251,.08)}
+.status-select.status-declined{border-color:rgba(255,85,85,.4);color:var(--red);background:rgba(255,85,85,.08)}
+.status-select.status-contacted{border-color:rgba(212,168,67,.4);color:var(--gold);background:rgba(212,168,67,.08)}
+.status-select.status-replied{border-color:rgba(0,180,216,.4);color:var(--teal);background:rgba(0,180,216,.08)}
+
+/* COMP SELECT */
+.comp-select{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:12px;font-family:inherit;color:var(--text);cursor:pointer;outline:none}
+.comp-select:focus{border-color:var(--teal)}
+.comp-select.comp-free{color:var(--green);border-color:rgba(40,200,80,.4)}
+.comp-select.comp-paid{color:var(--purple);border-color:rgba(224,64,251,.4)}
+
+/* FEE INPUT */
+.fee-input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:12px;font-family:inherit;color:var(--text);width:100px;outline:none;text-align:right}
+.fee-input:focus{border-color:var(--purple)}
+.fee-input::placeholder{color:var(--dim)}
+
+/* NOTES INPUT */
+.notes-input{background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 8px;font-size:11px;font-family:inherit;color:var(--muted);width:180px;outline:none;resize:none;height:32px}
+.notes-input:focus{border-color:var(--border);background:var(--surface2);color:var(--text)}
+
+/* TEXT INPUT (for contacted_by) */
+.text-input{background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 8px;font-size:12px;font-family:inherit;color:var(--text);width:100px;outline:none}
+.text-input:focus{border-color:var(--border);background:var(--surface2)}
+
+/* ACTION BUTTONS (per row) */
+.row-actions{display:flex;gap:4px;align-items:center}
+.icon-btn{background:none;border:1px solid transparent;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:.15s}
+.icon-btn:hover{border-color:var(--border);color:var(--text);background:var(--surface2)}
+.icon-btn.hide-btn:hover{color:var(--orange)}
+.icon-btn.delete-btn:hover{color:var(--red)}
+
+/* OKX STATUS BADGE */
+.okx-badge{display:inline-block;padding:2px 7px;border-radius:8px;font-size:9px;font-weight:700;letter-spacing:.3px;white-space:nowrap}
+.okx-approved{background:rgba(40,200,80,.12);color:var(--green);border:1px solid rgba(40,200,80,.25)}
+.okx-pick{background:rgba(212,168,67,.12);color:var(--gold);border:1px solid rgba(212,168,67,.25)}
+.okx-listed{background:rgba(0,180,216,.1);color:var(--teal);border:1px solid rgba(0,180,216,.2)}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:60px 24px;color:var(--dim)}
+.empty-state .icon{font-size:40px;margin-bottom:12px;opacity:.5}
+
+/* LOADING OVERLAY */
+#loading{position:fixed;inset:0;background:rgba(13,13,20,.85);z-index:500;display:flex;align-items:center;justify-content:center;gap:12px;font-size:14px;color:var(--muted)}
+#loading .spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;z-index:600;display:flex;flex-direction:column;gap:8px}
+.toast-msg{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:12px;color:var(--text);box-shadow:0 4px 20px rgba(0,0,0,.4);animation:toastin .2s ease;max-width:300px}
+.toast-msg.success{border-left:3px solid var(--green)}
+.toast-msg.error{border-left:3px solid var(--red)}
+.toast-msg.info{border-left:3px solid var(--teal)}
+@keyframes toastin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ADD CREATOR MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;display:flex;align-items:center;justify-content:center;padding:24px}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
+.modal h3{font-size:18px;font-weight:800;margin-bottom:24px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-field{display:flex;flex-direction:column;gap:6px}
+.form-field.full{grid-column:1/-1}
+.form-field label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.form-field input,.form-field select,.form-field textarea{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-family:inherit;font-size:13px;outline:none;transition:.15s}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--gold)}
+.form-field select option{background:var(--surface2)}
+.modal-actions{display:flex;gap:10px;margin-top:24px;justify-content:flex-end}
+
+/* REALTIME PULSE */
+.rt-pulse{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .budget-banner{gap:16px}
+  .bstat .val{font-size:16px}
+  .controls{flex-direction:column;align-items:flex-start}
+  .controls-right{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading"><div class="spinner"></div>Connecting to database...</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ADD MODAL (hidden by default) -->
+<div class="modal-overlay" id="addModal" style="display:none">
+  <div class="modal">
+    <h3>➕ Add Creator</h3>
+    <div class="form-grid">
+      <div class="form-field full"><label>Name *</label><input id="f-name" placeholder="e.g. Lojain Omran"></div>
+      <div class="form-field"><label>Handle *</label><input id="f-handle" placeholder="@username"></div>
+      <div class="form-field"><label>Instagram URL</label><input id="f-ig" placeholder="https://instagram.com/..."></div>
+      <div class="form-field"><label>Wave / Priority</label>
+        <select id="f-wave"><option value="P1">🔴 P1 — Priority</option><option value="P2">🟡 P2 — Mid</option><option value="P3" selected>🟢 P3 — Community</option></select>
+      </div>
+      <div class="form-field"><label>OKX Status</label>
+        <select id="f-okx"><option>OKX Approved</option><option>Our Pick</option><option selected>OKX Listed</option></select>
+      </div>
+      <div class="form-field"><label>Nationality</label><input id="f-nat" placeholder="e.g. Emirati"></div>
+      <div class="form-field"><label>Category</label><input id="f-cat" placeholder="e.g. Lifestyle / Food"></div>
+      <div class="form-field"><label>Followers</label><input id="f-foll" placeholder="e.g. 500K"></div>
+      <div class="form-field"><label>Gender</label>
+        <select id="f-gender"><option value="">—</option><option>Female</option><option>Male</option><option>Couple / Team</option><option>Brand / Media</option></select>
+      </div>
+      <div class="form-field"><label>Age Range</label><input id="f-age" placeholder="e.g. 25–34"></div>
+      <div class="form-field full"><label>Audience Location</label><input id="f-aud" placeholder="e.g. UAE 60%, Saudi 20%, Egypt 10%"></div>
+      <div class="form-field full"><label>Notes</label><textarea id="f-notes" rows="2" placeholder="Any relevant context..."></textarea></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveNewCreator()">✓ Add Creator</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div>
+    <div class="topbar h1" style="color:var(--gold);font-size:14px;font-weight:800">⚙️ OKX × Dubai Cares — Outreach Tracker</div>
+    <div style="font-size:10px;color:var(--dim)">Ramadan 2026 | TiKiT Agency — Confidential</div>
+  </div>
+  <div class="topbar-right">
+    <div class="rt-pulse"><div class="status-dot" id="rtDot"></div><span id="rtStatus">Connecting...</span></div>
+    <button class="btn btn-teal" onclick="exportCSV()">⬇ Export CSV</button>
+  </div>
+</div>
+
+<!-- BUDGET BANNER -->
+<div class="budget-banner" id="budgetBanner">
+  <div class="bstat green"><div class="val" id="b-probono">0</div><div class="lbl">Pro-bono Confirmed</div></div>
+  <div class="budget-sep"></div>
+  <div class="bstat teal"><div class="val" id="b-contacted">0</div><div class="lbl">Contacted</div></div>
+  <div class="budget-sep"></div>
+  <div class="bstat gold"><div class="val" id="b-paid-count">0</div><div class="lbl">Paid Confirmed</div></div>
+  <div class="budget-sep"></div>
+  <div class="bstat" style="--c:var(--purple)"><div class="val" id="b-fees" style="color:var(--purple)">AED 0</div><div class="lbl">Fees Agreed</div></div>
+  <div class="budget-sep"></div>
+  <div class="bstat red"><div class="val" id="b-remaining">AED 350,000</div><div class="lbl">Budget Remaining</div></div>
+  <div class="budget-sep"></div>
+  <div class="bstat"><div class="val" id="b-declined" style="color:var(--red)">0</div><div class="lbl">Declined</div></div>
+  <div class="budget-sep"></div>
+  <div class="bstat"><div class="val" id="b-total" style="color:var(--muted)">0</div><div class="lbl">Total Creators</div></div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <input class="search-box" id="searchBox" placeholder="🔍  Search creator, handle, notes..." oninput="applyFilters()">
+  <select class="filter-select" id="fWave" onchange="applyFilters()">
+    <option value="">All Waves</option>
+    <option value="P1">🔴 Priority (P1)</option>
+    <option value="P2">🟡 Mid-Range (P2)</option>
+    <option value="P3">🟢 Community (P3)</option>
+  </select>
+  <select class="filter-select" id="fStatus" onchange="applyFilters()">
+    <option value="">All Statuses</option>
+    <option>Not Contacted</option>
+    <option>Contacted</option>
+    <option>Replied</option>
+    <option>Pro-bono Confirmed</option>
+    <option>Paid Confirmed</option>
+    <option>Declined</option>
+    <option>No Response</option>
+  </select>
+  <select class="filter-select" id="fComp" onchange="applyFilters()">
+    <option value="">All Types</option>
+    <option>Pro-bono</option>
+    <option>Paid</option>
+    <option>TBD</option>
+  </select>
+  <select class="filter-select" id="fOkx" onchange="applyFilters()">
+    <option value="">All OKX Status</option>
+    <option>OKX Approved</option>
+    <option>Our Pick</option>
+    <option>OKX Listed</option>
+  </select>
+  <div class="sep"></div>
+  <label class="hidden-toggle" onclick="toggleHidden()">
+    <div class="toggle-switch" id="hiddenToggle"></div>
+    Show Hidden
+  </label>
+  <div class="controls-right">
+    <span style="font-size:11px;color:var(--dim)" id="rowCount"></span>
+    <button class="btn btn-primary" onclick="openModal()">+ Add Creator</button>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th style="width:24px">#</th>
+        <th style="width:160px">Creator</th>
+        <th style="width:130px">Handle</th>
+        <th style="width:60px">Wave</th>
+        <th style="width:90px">OKX</th>
+        <th style="width:80px">Followers</th>
+        <th style="width:80px">Nationality</th>
+        <th style="width:90px">Category</th>
+        <th style="width:80px">Contacted By</th>
+        <th style="width:170px">Status</th>
+        <th style="width:110px">Compensation</th>
+        <th style="width:105px">Fee Quoted (AED)</th>
+        <th style="width:105px">Fee Agreed (AED)</th>
+        <th style="width:190px">Notes</th>
+        <th style="width:70px">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+  <div class="empty-state" id="emptyState" style="display:none">
+    <div class="icon">🔍</div>
+    <div>No creators match your filters.</div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIG — Replace with your Supabase project values
+// ============================================================
+const SUPABASE_URL = 'REPLACE_WITH_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'REPLACE_WITH_SUPABASE_ANON_KEY';
+const BUDGET_TOTAL = 350000; // AED
+// ============================================================
+
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let allCreators = [];
+let showHidden = false;
+
+// ── INIT ──────────────────────────────────────────────────
+async function init() {
+  try {
+    await loadCreators();
+    setupRealtime();
+    hide('loading');
+  } catch(e) {
+    document.getElementById('loading').innerHTML = `
+      <div style="text-align:center;padding:24px">
+        <div style="font-size:24px;margin-bottom:12px">⚠️</div>
+        <div style="color:#ff5555;margin-bottom:8px">Database connection failed</div>
+        <div style="font-size:12px;color:#666">${e.message}</div>
+        <div style="font-size:11px;color:#555;margin-top:12px">Check that SUPABASE_URL and SUPABASE_ANON_KEY are configured correctly.</div>
+      </div>`;
+  }
+}
+
+// ── LOAD DATA ─────────────────────────────────────────────
+async function loadCreators() {
+  const { data, error } = await db.from('okx_outreach').select('*').order('wave').order('name');
+  if (error) throw error;
+  allCreators = data || [];
+  render();
+  updateBudget();
+}
+
+// ── REALTIME ──────────────────────────────────────────────
+function setupRealtime() {
+  db.channel('okx-outreach-rt')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'okx_outreach' }, payload => {
+      const ev = payload.eventType;
+      if (ev === 'INSERT') {
+        allCreators.push(payload.new);
+        toast('👤 New creator added: ' + payload.new.name, 'info');
+      } else if (ev === 'UPDATE') {
+        const i = allCreators.findIndex(c => c.id === payload.new.id);
+        if (i >= 0) allCreators[i] = payload.new;
+      } else if (ev === 'DELETE') {
+        allCreators = allCreators.filter(c => c.id !== payload.old.id);
+      }
+      render();
+      updateBudget();
+      document.getElementById('rtStatus').textContent = 'Live — ' + new Date().toLocaleTimeString('en', {hour:'2-digit',minute:'2-digit'});
+    })
+    .subscribe(status => {
+      const dot = document.getElementById('rtDot');
+      const txt = document.getElementById('rtStatus');
+      if (status === 'SUBSCRIBED') {
+        dot.style.background = '#28c850';
+        txt.textContent = 'Live — realtime connected';
+      } else {
+        dot.style.background = '#ff5555';
+        txt.textContent = 'Reconnecting...';
+      }
+    });
+}
+
+// ── RENDER ────────────────────────────────────────────────
+function applyFilters() { render(); }
+
+function render() {
+  const q   = document.getElementById('searchBox').value.toLowerCase();
+  const fw  = document.getElementById('fWave').value;
+  const fs  = document.getElementById('fStatus').value;
+  const fc  = document.getElementById('fComp').value;
+  const fo  = document.getElementById('fOkx').value;
+
+  const filtered = allCreators.filter(c => {
+    if (!showHidden && c.hidden) return false;
+    if (fw && c.wave !== fw) return false;
+    if (fs && c.status !== fs) return false;
+    if (fc && c.compensation !== fc) return false;
+    if (fo && c.okx_status !== fo) return false;
+    if (q) {
+      const hay = [c.name, c.handle, c.notes, c.category, c.nationality, c.contacted_by].join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const tbody = document.getElementById('tableBody');
+  const empty = document.getElementById('emptyState');
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = '';
+    document.getElementById('rowCount').textContent = '0 creators';
+    return;
+  }
+
+  empty.style.display = 'none';
+  document.getElementById('rowCount').textContent = filtered.length + ' of ' + allCreators.filter(c => showHidden || !c.hidden).length;
+
+  tbody.innerHTML = filtered.map((c, idx) => `
+    <tr id="row-${c.id}" class="${c.hidden ? 'hidden-row' : ''}">
+      <td style="color:var(--dim);font-size:11px">${idx+1}</td>
+      <td class="cell-name">
+        ${esc(c.name)}
+        ${c.hidden ? '<span style="font-size:9px;background:rgba(255,119,0,.15);color:#ff7700;border:1px solid rgba(255,119,0,.25);padding:1px 6px;border-radius:6px;margin-left:4px">HIDDEN</span>' : ''}
+        <div class="sub">${esc(c.category||'')} ${c.gender ? '· '+esc(c.gender) : ''}</div>
+      </td>
+      <td class="cell-handle">
+        <a href="${esc(c.ig_url||'#')}" target="_blank">${esc(c.handle||'—')}</a>
+        ${c.ig_url ? '<div style="font-size:9px;color:var(--dim)"><a href="'+esc(c.ig_url)+'" target="_blank" style="color:var(--dim)">↗ Instagram</a></div>' : ''}
+      </td>
+      <td><span class="wave-badge wave-${c.wave||'P3'}">${c.wave||'P3'}</span></td>
+      <td><span class="okx-badge ${okxClass(c.okx_status)}">${esc(c.okx_status||'—')}</span></td>
+      <td style="font-size:12px;font-weight:600">${esc(c.followers||'—')}</td>
+      <td style="font-size:11px;color:var(--muted)">${esc(c.nationality||'—')}</td>
+      <td style="font-size:11px;color:var(--muted)">${esc(c.category||'—')}</td>
+      <td>
+        <input class="text-input" value="${esc(c.contacted_by||'')}" placeholder="Name..."
+          onblur="updateField('${c.id}','contacted_by',this.value)" onkeydown="if(event.key==='Enter')this.blur()">
+      </td>
+      <td>
+        <select class="status-select ${statusClass(c.status)}" onchange="updateField('${c.id}','status',this.value);styleSelect(this,'status')">
+          ${statusOptions(c.status)}
+        </select>
+      </td>
+      <td>
+        <select class="comp-select ${compClass(c.compensation)}" onchange="updateField('${c.id}','compensation',this.value);styleSelect(this,'comp')">
+          <option ${c.compensation==='TBD'?'selected':''}>TBD</option>
+          <option ${c.compensation==='Pro-bono'?'selected':''}>Pro-bono</option>
+          <option ${c.compensation==='Paid'?'selected':''}>Paid</option>
+        </select>
+      </td>
+      <td>
+        <input class="fee-input" type="number" min="0" step="500"
+          value="${c.fee_quoted||''}" placeholder="0"
+          onblur="updateField('${c.id}','fee_quoted',parseFloat(this.value)||null)"
+          onkeydown="if(event.key==='Enter')this.blur()">
+      </td>
+      <td>
+        <input class="fee-input" type="number" min="0" step="500"
+          value="${c.fee_agreed||''}" placeholder="0"
+          onblur="updateField('${c.id}','fee_agreed',parseFloat(this.value)||null);updateBudget()"
+          onkeydown="if(event.key==='Enter')this.blur()">
+      </td>
+      <td>
+        <textarea class="notes-input" rows="1" placeholder="Notes..."
+          onblur="updateField('${c.id}','notes',this.value)">${esc(c.notes||'')}</textarea>
+      </td>
+      <td>
+        <div class="row-actions">
+          <button class="icon-btn" title="Edit demographics" onclick="editDemographics('${c.id}')">📊</button>
+          <button class="icon-btn hide-btn" title="${c.hidden?'Unhide':'Hide'}" onclick="toggleHideCreator('${c.id}',${!c.hidden})">${c.hidden?'👁':'🙈'}</button>
+          <button class="icon-btn delete-btn" title="Delete permanently" onclick="deleteCreator('${c.id}','${esc(c.name)}')">🗑</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// ── FIELD UPDATE ──────────────────────────────────────────
+async function updateField(id, field, value) {
+  const { error } = await db.from('okx_outreach').update({ [field]: value }).eq('id', id);
+  if (error) { toast('Update failed: ' + error.message, 'error'); return; }
+  const c = allCreators.find(x => x.id === id);
+  if (c) c[field] = value;
+  updateBudget();
+}
+
+// ── HIDE/UNHIDE ───────────────────────────────────────────
+async function toggleHideCreator(id, newHidden) {
+  await updateField(id, 'hidden', newHidden);
+  render();
+  toast(newHidden ? '🙈 Creator hidden' : '👁 Creator visible', 'info');
+}
+
+function toggleHidden() {
+  showHidden = !showHidden;
+  document.getElementById('hiddenToggle').classList.toggle('on', showHidden);
+  render();
+}
+
+// ── DELETE ────────────────────────────────────────────────
+async function deleteCreator(id, name) {
+  if (!confirm(`Delete "${name}" permanently? This cannot be undone.`)) return;
+  const { error } = await db.from('okx_outreach').delete().eq('id', id);
+  if (error) { toast('Delete failed: ' + error.message, 'error'); return; }
+  allCreators = allCreators.filter(c => c.id !== id);
+  render(); updateBudget();
+  toast(`🗑 "${name}" deleted`, 'info');
+}
+
+// ── ADD CREATOR ───────────────────────────────────────────
+function openModal() { document.getElementById('addModal').style.display = 'flex'; }
+function closeModal() { document.getElementById('addModal').style.display = 'none'; clearForm(); }
+
+async function saveNewCreator() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { toast('Name is required', 'error'); return; }
+  const row = {
+    name, handle: document.getElementById('f-handle').value.trim(),
+    ig_url: document.getElementById('f-ig').value.trim(),
+    wave: document.getElementById('f-wave').value,
+    okx_status: document.getElementById('f-okx').value,
+    nationality: document.getElementById('f-nat').value.trim(),
+    category: document.getElementById('f-cat').value.trim(),
+    followers: document.getElementById('f-foll').value.trim(),
+    gender: document.getElementById('f-gender').value,
+    age_range: document.getElementById('f-age').value.trim(),
+    audience_location: document.getElementById('f-aud').value.trim(),
+    notes: document.getElementById('f-notes').value.trim(),
+    status: 'Not Contacted', compensation: 'TBD', hidden: false
+  };
+  const { data, error } = await db.from('okx_outreach').insert(row).select().single();
+  if (error) { toast('Insert failed: ' + error.message, 'error'); return; }
+  allCreators.push(data);
+  render(); updateBudget(); closeModal();
+  toast(`✅ "${name}" added to the tracker`, 'success');
+}
+
+function clearForm() {
+  ['f-name','f-handle','f-ig','f-nat','f-cat','f-foll','f-age','f-aud','f-notes'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('f-wave').value = 'P3';
+  document.getElementById('f-okx').value = 'OKX Listed';
+  document.getElementById('f-gender').value = '';
+}
+
+// ── DEMOGRAPHICS EDIT ─────────────────────────────────────
+async function editDemographics(id) {
+  const c = allCreators.find(x => x.id === id);
+  if (!c) return;
+  const gender = prompt('Gender (Female / Male / Couple / Brand):', c.gender||'');
+  if (gender === null) return;
+  const age_range = prompt('Audience Age Range (e.g. 18-35):', c.age_range||'');
+  if (age_range === null) return;
+  const audience_location = prompt('Audience Location (e.g. UAE 60%, KSA 20%):', c.audience_location||'');
+  if (audience_location === null) return;
+  const followers = prompt('Followers:', c.followers||'');
+  if (followers === null) return;
+  await db.from('okx_outreach').update({ gender, age_range, audience_location, followers }).eq('id', id);
+  Object.assign(c, { gender, age_range, audience_location, followers });
+  render();
+  toast('📊 Demographics updated', 'success');
+}
+
+// ── BUDGET CALC ───────────────────────────────────────────
+function updateBudget() {
+  const visible = allCreators.filter(c => !c.hidden);
+  const probono = visible.filter(c => c.status === 'Pro-bono Confirmed').length;
+  const paidCount = visible.filter(c => c.status === 'Paid Confirmed').length;
+  const contacted = visible.filter(c => c.status === 'Contacted').length;
+  const declined = visible.filter(c => c.status === 'Declined').length;
+  const fees = visible.filter(c => c.status === 'Paid Confirmed').reduce((s, c) => s + (parseFloat(c.fee_agreed)||0), 0);
+  const remaining = BUDGET_TOTAL - fees;
+
+  document.getElementById('b-probono').textContent = probono;
+  document.getElementById('b-paid-count').textContent = paidCount;
+  document.getElementById('b-contacted').textContent = contacted;
+  document.getElementById('b-declined').textContent = declined;
+  document.getElementById('b-fees').textContent = 'AED ' + fees.toLocaleString();
+  document.getElementById('b-remaining').textContent = 'AED ' + Math.max(0, remaining).toLocaleString();
+  document.getElementById('b-total').textContent = visible.length;
+
+  document.getElementById('b-remaining').style.color = remaining < 50000 ? 'var(--red)' : 'var(--orange)';
+}
+
+// ── EXPORT CSV ────────────────────────────────────────────
+function exportCSV() {
+  const headers = ['Name','Handle','IG URL','Wave','OKX Status','Followers','Nationality','Category','Gender','Age Range','Audience Location','Contacted By','Status','Compensation','Fee Quoted (AED)','Fee Agreed (AED)','Notes'];
+  const rows = allCreators.filter(c => !c.hidden).map(c => [
+    c.name, c.handle, c.ig_url, c.wave, c.okx_status, c.followers,
+    c.nationality, c.category, c.gender, c.age_range, c.audience_location,
+    c.contacted_by, c.status, c.compensation, c.fee_quoted||'', c.fee_agreed||'', c.notes
+  ].map(v => '"' + String(v||'').replace(/"/g,'""') + '"').join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'OKX_DubaiCares_Outreach_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  toast('📥 CSV exported', 'success');
+}
+
+// ── HELPERS ───────────────────────────────────────────────
+function hide(id) { document.getElementById(id).style.display = 'none'; }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function statusOptions(cur) {
+  return ['Not Contacted','Contacted','Replied','Pro-bono Confirmed','Paid Confirmed','Declined','No Response']
+    .map(s => `<option ${s===cur?'selected':''}>${s}</option>`).join('');
+}
+
+function statusClass(s) {
+  if (s === 'Pro-bono Confirmed') return 'status-confirmed';
+  if (s === 'Paid Confirmed')     return 'status-paid';
+  if (s === 'Declined')           return 'status-declined';
+  if (s === 'Contacted')          return 'status-contacted';
+  if (s === 'Replied')            return 'status-replied';
+  return '';
+}
+
+function compClass(c) {
+  if (c === 'Pro-bono') return 'comp-free';
+  if (c === 'Paid') return 'comp-paid';
+  return '';
+}
+
+function okxClass(s) {
+  if (s === 'OKX Approved') return 'okx-approved';
+  if (s === 'Our Pick') return 'okx-pick';
+  return 'okx-listed';
+}
+
+function styleSelect(el, type) {
+  el.className = type === 'status'
+    ? 'status-select ' + statusClass(el.value)
+    : 'comp-select ' + compClass(el.value);
+}
+
+let _toastTimer = {};
+function toast(msg, type='info') {
+  const container = document.getElementById('toast');
+  const div = document.createElement('div');
+  div.className = 'toast-msg ' + type;
+  div.textContent = msg;
+  container.appendChild(div);
+  setTimeout(() => { div.style.opacity='0'; div.style.transition='.3s'; setTimeout(() => div.remove(), 300); }, 3000);
+}
+
+// ── START ─────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
