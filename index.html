@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OKX × Dubai Cares | Ramadan Campaign Strategy — TiKiT Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--gold:#d4a843;--teal:#00b4d8;--white:#f0f0f0;--gray:#888;--card:#14141f;--card2:#1a1a2e}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--white);font-family:'Inter',sans-serif}
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal));z-index:1000;transition:width .4s}
+#counter{position:fixed;top:12px;right:24px;z-index:1000;font-size:13px;color:var(--gray);font-weight:600;letter-spacing:1px}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 80px;opacity:0;pointer-events:none;transition:opacity .5s,transform .5s;transform:translateY(30px)}
+.slide.active{opacity:1;pointer-events:auto;transform:translateY(0)}
+.slide h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,64px);text-align:center;line-height:1.15;margin-bottom:24px}
+.slide h2{font-size:clamp(22px,3vw,40px);font-weight:800;margin-bottom:20px;text-align:center}
+.slide h3{font-size:20px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:3px;margin-bottom:12px;text-align:center}
+.slide p,.slide li{font-size:clamp(14px,1.6vw,18px);line-height:1.7;color:#ccc;max-width:900px;text-align:center}
+.slide ul{list-style:none;text-align:left;max-width:800px}
+.slide ul li::before{content:'▸ ';color:var(--gold)}
+.gold{color:var(--gold)}.teal{color:var(--teal)}.bold{font-weight:700}
+.tag{display:inline-block;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.tag-gold{background:rgba(212,168,67,.15);color:var(--gold);border:1px solid rgba(212,168,67,.3)}
+.tag-teal{background:rgba(0,180,216,.12);color:var(--teal);border:1px solid rgba(0,180,216,.3)}
+.tag-red{background:rgba(255,60,60,.12);color:#ff5555;border:1px solid rgba(255,60,60,.3)}
+
+/* NAV */
+#nav{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:1000;display:flex;gap:12px}
+#nav button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:var(--white);width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:18px;transition:.2s}
+#nav button:hover{background:var(--gold);color:#000;border-color:var(--gold)}
+
+/* FOOTER */
+.footer{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-size:11px;color:#555;letter-spacing:2px;text-transform:uppercase}
+
+/* GRID helpers */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;width:100%;max-width:1000px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;max-width:1100px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;width:100%;max-width:1100px}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:28px 24px;text-align:left}
+.card h4{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--white)}
+.card p{font-size:13px;text-align:left;color:#aaa;line-height:1.5}
+.card .num{font-family:'Playfair Display',serif;font-size:36px;color:var(--gold);margin-bottom:8px}
+
+/* Influencer grid */
+.inf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;width:100%;max-width:1100px}
+.inf{background:var(--card);border-radius:12px;padding:16px;text-align:center;border-left:3px solid var(--gold)}
+.inf.tb{border-left-color:var(--teal)}.inf.tc{border-left-color:#e040fb}.inf.td{border-left-color:#69f0ae}.inf.te{border-left-color:#ff7043}
+.inf .handle{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:2px}
+.inf .name{font-size:11px;color:#999;margin-bottom:4px}
+.inf .foll{font-size:18px;font-weight:800;color:var(--white)}
+.inf .role{font-size:11px;color:#777;margin-top:4px}
+
+/* KPI bars */
+.kpi{display:flex;align-items:center;gap:16px;width:100%;max-width:700px;margin:8px 0}
+.kpi-label{width:160px;text-align:right;font-size:14px;font-weight:600;color:#ccc}
+.kpi-bar{flex:1;height:28px;background:rgba(255,255,255,.06);border-radius:14px;overflow:hidden;position:relative}
+.kpi-fill{height:100%;border-radius:14px;background:linear-gradient(90deg,var(--gold),var(--teal));transition:width 1.2s .3s}
+.kpi-val{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:#fff}
+
+/* Budget table */
+.budget-table{width:100%;max-width:800px;border-collapse:collapse}
+.budget-table th,.budget-table td{padding:14px 18px;text-align:left;font-size:14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.budget-table th{color:var(--gold);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:1px}
+.budget-table tr:last-child td{border-bottom:none;font-weight:800;color:var(--gold);font-size:16px}
+
+/* Phase timeline */
+.phases{display:flex;gap:20px;width:100%;max-width:1000px}
+.phase{flex:1;background:var(--card);border-radius:14px;padding:28px 22px;position:relative;overflow:hidden}
+.phase::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.phase.now::before{background:var(--gold)}.phase.peak::before{background:var(--teal)}.phase.close::before{background:#e040fb}
+.phase h4{font-size:16px;font-weight:800;margin-bottom:6px}.phase .dates{font-size:12px;color:var(--gray);margin-bottom:12px}
+.phase ul{list-style:none;font-size:13px;color:#bbb;line-height:1.8}
+.phase ul li::before{content:'→ ';color:var(--gold)}
+
+/* Outreach box */
+.outreach-box{background:var(--card);border:1px solid rgba(212,168,67,.2);border-radius:16px;padding:36px 40px;max-width:800px;text-align:left;font-size:14px;line-height:1.9;color:#ccc}
+.outreach-box .subj{color:var(--gold);font-weight:700;font-size:13px;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+
+/* Urgency pulse */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.pulse{animation:pulse 1.8s infinite}
+
+/* Crescent */
+.crescent{font-size:clamp(60px,10vw,120px);margin-bottom:16px;opacity:.85}
+
+/* Influencer link */
+.inf a{color:inherit;text-decoration:none;display:block}
+.inf a:hover .handle{text-decoration:underline;opacity:.85}
+.inf .ig-link{display:inline-block;margin-top:6px;font-size:10px;color:#555;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:2px 8px;transition:.2s}
+.inf:hover .ig-link{background:rgba(212,168,67,.15);border-color:rgba(212,168,67,.3);color:var(--gold)}
+
+/* NMC Badges */
+.nmc-badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.5px;padding:2px 8px;border-radius:10px;margin-top:6px;text-transform:uppercase}
+.nmc-pass{background:rgba(40,200,80,.15);color:#28c850;border:1px solid rgba(40,200,80,.3)}
+.nmc-cond{background:rgba(255,200,0,.15);color:#ffc800;border:1px solid rgba(255,200,0,.3)}
+.nmc-fail{background:rgba(255,60,60,.15);color:#ff3c3c;border:1px solid rgba(255,60,60,.3)}
+.nmc-replaced{background:rgba(0,180,216,.12);color:var(--teal);border:1px solid rgba(0,180,216,.3);font-size:8px;margin-top:2px;display:block}
+
+/* Audit slide */
+.audit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;max-width:900px;margin-top:20px}
+.audit-stat{text-align:center;padding:24px}
+.audit-stat .big{font-size:48px;font-weight:900;margin-bottom:8px}
+.audit-stat .label{font-size:13px;color:#aaa}
+
+/* Responsive */
+@media(max-width:900px){.grid2,.grid3,.grid4,.phases{grid-template-columns:1fr;flex-direction:column}.inf-grid{grid-template-columns:repeat(2,1fr)}.slide{padding:40px 28px}}
+@media(max-width:600px){.inf-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="counter"></div>
+
+<!-- SLIDE 1: COVER -->
+<div class="slide active" data-i="0">
+  <div class="crescent">☪</div>
+  <h3>TiKiT Agency × Confidential</h3>
+  <h1><span class="gold">OKX</span> × <span class="teal">Dubai Cares</span></h1>
+  <h2 style="font-weight:400;font-size:clamp(18px,2.5vw,28px);color:#ccc">Ramadan Influencer Campaign Strategy</h2>
+  <p style="margin-top:16px"><span class="tag tag-red pulse">⚡ RAMADAN IS LIVE — ACTIVATE NOW</span></p>
+  <p style="margin-top:24px;font-size:13px;color:#666">February 2026 | 13 Influencers | 12.5M+ Reach | AED 350K–550K</p>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 2: CAMPAIGN INTELLIGENCE -->
+<div class="slide" data-i="1">
+  <h3>Campaign Intelligence</h3>
+  <h2>The Players & The Moment</h2>
+  <div class="grid2" style="margin-top:20px">
+    <div class="card">
+      <h4><span class="gold">OKX</span> Middle East</h4>
+      <p>#2 global crypto exchange. Fully VARA-licensed (VL/23/12/003). AED trading pairs, UAE bank integration, 280+ cryptocurrencies. Operational since October 2024.</p>
+    </div>
+    <div class="card">
+      <h4><span class="teal">Dubai Cares</span></h4>
+      <p>UN-affiliated charity. Programs reaching 116M+ people across 60 developing countries. Focus: education (UN SDG 4). One of UAE's most trusted charitable brands.</p>
+    </div>
+    <div class="card">
+      <h4>Why <span class="gold">Ramadan</span></h4>
+      <p>Charitable giving in the UAE surges 3–5× during Ramadan. Zakat & Sadaqah are pillars of Islamic faith. Crypto meets purpose — the perfect alignment.</p>
+    </div>
+    <div class="card">
+      <h4>The <span class="teal">Campaign</span></h4>
+      <p>UAE residents donate and participate through OKX's platform. Every registration and trade contributes to Dubai Cares' education programs worldwide.</p>
+    </div>
+  </div>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 3: BIG IDEA -->
+<div class="slide" data-i="2">
+  <h3>The Big Idea</h3>
+  <h1 style="font-size:clamp(36px,5.5vw,72px)"><span class="gold">Give</span> Without Borders.<br><span class="teal">Build</span> Without Limits.</h1>
+  <p style="margin-top:24px;font-size:clamp(15px,1.8vw,20px);color:#aaa;max-width:700px">This is not a crypto ad. This is a <strong style="color:#fff">giving movement</strong> powered by crypto. Where blockchain technology meets the timeless spirit of Ramadan generosity.</p>
+  <p style="margin-top:16px;font-size:14px;color:#666">Every registration funds education. Every share multiplies impact. Every influencer amplifies the cause.</p>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 4: URGENCY -->
+<div class="slide" data-i="3">
+  <h3 style="color:#ff5555" class="pulse">⚠️ URGENT</h3>
+  <h1 style="color:#ff5555">Ramadan Has Started.<br><span class="gold">The Window Is NOW.</span></h1>
+  <p style="margin-top:20px;font-size:18px;color:#ccc">We are <strong style="color:#fff">inside Ramadan 2026</strong>. Every day without activation is reach we will never recover.</p>
+  <div class="grid3" style="margin-top:32px">
+    <div class="card" style="text-align:center;border:1px solid rgba(255,85,85,.3)">
+      <div class="num" style="color:#ff5555">~25</div>
+      <h4>Days Remaining</h4>
+      <p style="text-align:center">Estimated days left in Ramadan 2026</p>
+    </div>
+    <div class="card" style="text-align:center;border:1px solid rgba(212,168,67,.3)">
+      <div class="num">48h</div>
+      <h4>First Posts Live</h4>
+      <p style="text-align:center">Tier A crypto influencers go within 48 hours of approval</p>
+    </div>
+    <div class="card" style="text-align:center;border:1px solid rgba(0,180,216,.3)">
+      <div class="num" style="color:var(--teal)">13</div>
+      <h4>Outreach Today</h4>
+      <p style="text-align:center">All 13 influencers contacted immediately upon sign-off</p>
+    </div>
+  </div>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 5: AUDIENCE -->
+<div class="slide" data-i="4">
+  <h3>Audience Architecture</h3>
+  <h2>4 Segments, One Movement</h2>
+  <div class="grid4" style="margin-top:20px">
+    <div class="card" style="border-top:3px solid var(--gold)">
+      <h4>🪙 Crypto Natives</h4>
+      <p>Already on exchanges. Need a reason to use OKX. Trust crypto KOLs. Driven by product & credibility.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--teal)">
+      <h4>🕌 Ramadan Givers</h4>
+      <p>Fulfill Zakat/Sadaqah annually. Trust Dubai Cares. New to crypto — need a simple, trusted bridge.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #e040fb">
+      <h4>👩‍💻 Women in Web3</h4>
+      <p>Underserved but growing fast. Respond to female crypto voices. Seek education-first content.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #ff7043">
+      <h4>🌍 UAE Expats</h4>
+      <p>Diverse, digitally savvy. Send remittances. Open to crypto for cross-border giving.</p>
+    </div>
+  </div>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 6: PHASES -->
+<div class="slide" data-i="5">
+  <h3>Campaign Phases</h3>
+  <h2>Revised for <span class="gold">Immediate Activation</span></h2>
+  <div class="phases" style="margin-top:24px">
+    <div class="phase now">
+      <h4>🔥 Phase 1: NOW</h4>
+      <div class="dates">Days 1–10 of Ramadan — LIVE</div>
+      <ul>
+        <li>Tier A crypto influencers post within 48h</li>
+        <li>Outreach to all 13 begins TODAY</li>
+        <li>Charity-first angle + personal stories</li>
+        <li>OKX campaign page goes live</li>
+      </ul>
+    </div>
+    <div class="phase peak">
+      <h4>🚀 Phase 2: PEAK</h4>
+      <div class="dates">Days 10–25 of Ramadan</div>
+      <ul>
+        <li>All 13 influencers activated</li>
+        <li>Staggered posts every 2–3 days</li>
+        <li>Arabic content: Khalid + Loujain</li>
+        <li>Laylat Al Qadr (~Day 27): All-in push</li>
+      </ul>
+    </div>
+    <div class="phase close">
+      <h4>✨ Phase 3: CLOSE + Eid</h4>
+      <div class="dates">Last 5 days + Eid Al Fitr</div>
+      <ul>
+        <li>Impact numbers published</li>
+        <li>Influencers reshare results</li>
+        <li>Eid celebration content</li>
+        <li>Thank-you from Dubai Cares</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 7: CONTENT STRATEGY -->
+<div class="slide" data-i="6">
+  <h3>Content Strategy</h3>
+  <h2>Formats, Hooks & CTAs</h2>
+  <div class="grid3" style="margin-top:20px">
+    <div class="card">
+      <h4>📱 Formats</h4>
+      <p><strong style="color:#fff">Per influencer:</strong><br>1× Instagram Reel (60–90s)<br>2× Instagram Stories (swipe-up CTA)<br>Optional: TikTok repost, X/Twitter thread</p>
+    </div>
+    <div class="card">
+      <h4>🎯 Messaging Hooks</h4>
+      <p>• "Your Zakat, borderless"<br>• "Crypto can change a child's future"<br>• "I just donated in 30 seconds"<br>• "Ramadan is giving — OKX makes it global"<br>• "116 million reasons to give"</p>
+    </div>
+    <div class="card">
+      <h4>⚡ CTAs</h4>
+      <p>• "Register on OKX — your first step funds education"<br>• "Link in bio → donate now"<br>• "Swipe up to give without borders"<br>• Campaign URL with UTM tracking per influencer</p>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:13px;color:#666">All content reviewed by TiKiT + OKX compliance before posting. VARA disclosure requirements built into every brief.</p>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 8: NMC COMPLIANCE AUDIT -->
+<div class="slide" data-i="7">
+  <h3>🛡️ NMC Compliance Audit</h3>
+  <h2>UAE Media Council 2025 <span class="gold">Compliance Screening</span></h2>
+  <p style="margin-top:8px;max-width:750px">Every influencer was screened against the UAE National Media Council 2025 framework (fines up to AED 2M). Research covered: content style, controversy history, alcohol/party content, modesty standards, and alignment with Ramadan charity values.</p>
+  <div class="audit-grid">
+    <div class="card audit-stat" style="border-top:3px solid #28c850">
+      <div class="big" style="color:#28c850">8</div>
+      <div class="label">✅ Passed</div>
+      <p style="font-size:12px;text-align:center;margin-top:8px">Clean records, fully NMC-aligned</p>
+    </div>
+    <div class="card audit-stat" style="border-top:3px solid #ffc800">
+      <div class="big" style="color:#ffc800">3</div>
+      <div class="label">🟡 Conditional</div>
+      <p style="font-size:12px;text-align:center;margin-top:8px">Approved with strict brief & contract</p>
+    </div>
+    <div class="card audit-stat" style="border-top:3px solid #ff3c3c">
+      <div class="big" style="color:#ff3c3c">2</div>
+      <div class="label">🔴 Replaced</div>
+      <p style="font-size:12px;text-align:center;margin-top:8px">Swapped for NMC-safe alternatives</p>
+    </div>
+  </div>
+  <div style="margin-top:20px;max-width:800px;font-size:13px;color:#888;text-align:left;line-height:2">
+    <p><strong style="color:#ff3c3c">🔴 Replaced:</strong><br>
+      Claudius Vertesi — luxury flex / alcohol-adjacent lifestyle content → <span class="gold">Mohammed Alsaadi</span> (Arab UAE crypto KOL, MEBA Top 4)<br>
+      Loujain Adada — fashion/swimwear/revealing content, conflicts with Ramadan values → <span class="gold">Nourhan Elgouhary</span> (710K, Dubai hijabi modest lifestyle)
+    </p>
+    <p style="margin-top:8px"><strong style="color:#ffc800">🟡 Conditional (strict brief required):</strong> Lilly Douse (beach/travel content — professional-only styling mandated) | Matthias Mende (European background — pre-brief post review required) | Maria Frackowiak (verify last 60 days of content)</p>
+  </div>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 9: INFLUENCER ROSTER -->
+<div class="slide" data-i="8">
+  <h3>Influencer Roster</h3>
+  <h2>13 Voices. 5 Tiers. 12.5M+ Reach.</h2>
+  <div class="inf-grid" style="margin-top:16px">
+    <div class="inf"><a href="https://www.instagram.com/thisisgaladari/" target="_blank"><div class="handle">@thisisgaladari</div><div class="name">Mohammad Galadari</div><div class="foll">888K</div><div class="role">Campaign Anchor</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf"><a href="https://www.instagram.com/mohammed_alsaadi/" target="_blank"><div class="handle">@mohammed_alsaadi</div><div class="name">Mohammed Alsaadi</div><div class="foll">UAE Crypto</div><div class="role">Product Credibility</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><span class="nmc-replaced">↻ Replaces Claudius Vertesi</span><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf"><a href="https://www.instagram.com/legendoftrading/" target="_blank"><div class="handle">@legendoftrading</div><div class="name">Tapas Mohanta</div><div class="foll">238K</div><div class="role">Expat Bridge</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf"><a href="https://www.instagram.com/cryptorover/" target="_blank"><div class="handle">@cryptorover</div><div class="name">Daan de Rover</div><div class="foll">52.5K</div><div class="role">Conversion Driver</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf tb"><a href="https://www.instagram.com/lillydouse/" target="_blank"><div class="handle" style="color:var(--teal)">@lillydouse</div><div class="name">Lilly Douse</div><div class="foll">45.9K</div><div class="role">Female Entry Point</div><div class="nmc-badge nmc-cond">🟡 CONDITIONAL</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf tb"><a href="https://www.instagram.com/cryptogirluae/" target="_blank"><div class="handle" style="color:var(--teal)">@cryptogirluae</div><div class="name">Aziza Faryal</div><div class="foll">UAE</div><div class="role">Female MENA Advocate</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf tb"><a href="https://www.instagram.com/merys_way/" target="_blank"><div class="handle" style="color:var(--teal)">@merys_way</div><div class="name">Maria Frackowiak</div><div class="foll">8.5K</div><div class="role">Precision Micro</div><div class="nmc-badge nmc-cond">🟡 CONDITIONAL</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf tc"><a href="https://www.instagram.com/khalidalameri/" target="_blank"><div class="handle" style="color:#e040fb">@khalidalameri</div><div class="name">Khalid Al Ameri</div><div class="foll">3M</div><div class="role">Emotional Anchor ★</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf tc"><a href="https://www.instagram.com/anasbukhash/" target="_blank"><div class="handle" style="color:#e040fb">@anasbukhash</div><div class="name">Anas Bukhash</div><div class="foll">3M</div><div class="role">Entrepreneur Narrative</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf td"><a href="https://www.instagram.com/mende/" target="_blank"><div class="handle" style="color:#69f0ae">@mende</div><div class="name">Matthias Mende</div><div class="foll">203K</div><div class="role">Startup Bridge</div><div class="nmc-badge nmc-cond">🟡 CONDITIONAL</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf te"><a href="https://www.instagram.com/shamidrees/" target="_blank"><div class="handle" style="color:#ff7043">@shamidrees</div><div class="name">Sham Idrees</div><div class="foll">2M+</div><div class="role">Mass Reach</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf te"><a href="https://www.instagram.com/nourhanelgouhary/" target="_blank"><div class="handle" style="color:#ff7043">@nourhanelgouhary</div><div class="name">Nourhan Elgouhary</div><div class="foll">710K</div><div class="role">Arab Female — Ramadan Audience</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><span class="nmc-replaced">↻ Replaces Loujain Adada</span><div class="ig-link">↗ View Instagram</div></a></div>
+    <div class="inf te"><a href="https://www.instagram.com/art.by.amrita/" target="_blank"><div class="handle" style="color:#ff7043">@art.by.amrita</div><div class="name">Amrita Sethi</div><div class="foll">675K</div><div class="role">Creative / Art Angle</div><div class="nmc-badge nmc-pass">✅ NMC PASS</div><div class="ig-link">↗ View Instagram</div></a></div>
+  </div>
+  <p style="margin-top:12px;font-size:11px;color:#555">
+    <span style="color:var(--gold)">■</span> Tier A: Crypto Native &nbsp;
+    <span style="color:var(--teal)">■</span> Tier B: Female Crypto &nbsp;
+    <span style="color:#e040fb">■</span> Tier C: Mega Lifestyle &nbsp;
+    <span style="color:#69f0ae">■</span> Tier D: Tech/Builder &nbsp;
+    <span style="color:#ff7043">■</span> Tier E: Broad Lifestyle
+  </p>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 10: OUTREACH -->
+<div class="slide" data-i="9">
+  <h3>Outreach Communication</h3>
+  <h2>DM / Email Template</h2>
+  <div class="outreach-box" style="margin-top:20px">
+    <div class="subj">Subject: TiKiT × OKX × Dubai Cares — Ramadan Campaign — URGENT</div>
+    <p style="color:#ccc;font-size:15px;line-height:2">
+      Hi <span class="gold">[Name]</span>,<br><br>
+      We're activating an <strong style="color:#fff">OKX × Dubai Cares</strong> Ramadan campaign <strong style="color:#ff5555">NOW</strong>.<br><br>
+      This is a giving movement powered by crypto — every registration through the campaign funds education for children in 60+ countries via Dubai Cares.<br><br>
+      We'd love <span class="gold">[Name]</span> as one of <strong style="color:#fff">13 selected voices</strong> for this campaign.<br><br>
+      Available for an immediate brief?<br>
+      Rate for <strong style="color:#fff">1× Reel + 2× Stories</strong>?<br>
+      Any competitor conflicts (Binance, Bybit, Coinbase)?<br><br>
+      <span style="color:var(--gold)">— TiKiT Agency</span>
+    </p>
+  </div>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 11: KPIs -->
+<div class="slide" data-i="10">
+  <h3>KPIs & Measurement</h3>
+  <h2>Success Metrics</h2>
+  <div style="margin-top:28px;width:100%;max-width:750px">
+    <div class="kpi"><div class="kpi-label">Total Reach</div><div class="kpi-bar"><div class="kpi-fill" style="width:0" data-w="90%"></div><div class="kpi-val">25M+ impressions</div></div></div>
+    <div class="kpi"><div class="kpi-label">Reel Plays</div><div class="kpi-bar"><div class="kpi-fill" style="width:0" data-w="75%"></div><div class="kpi-val">5M+</div></div></div>
+    <div class="kpi"><div class="kpi-label">Link Clicks</div><div class="kpi-bar"><div class="kpi-fill" style="width:0" data-w="60%"></div><div class="kpi-val">50,000+</div></div></div>
+    <div class="kpi"><div class="kpi-label">OKX Registrations</div><div class="kpi-bar"><div class="kpi-fill" style="width:0" data-w="50%"></div><div class="kpi-val">5,000+</div></div></div>
+    <div class="kpi"><div class="kpi-label">Donations</div><div class="kpi-bar"><div class="kpi-fill" style="width:0" data-w="65%"></div><div class="kpi-val">AED 200,000+</div></div></div>
+  </div>
+  <p style="margin-top:20px;font-size:13px;color:#666">Tracked via UTM parameters, OKX dashboard analytics, and Dubai Cares reporting.</p>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 12: BUDGET -->
+<div class="slide" data-i="11">
+  <h3>Budget Framework</h3>
+  <h2>Investment Breakdown</h2>
+  <table class="budget-table" style="margin-top:24px">
+    <tr><th>Category</th><th>Influencers</th><th>Budget (AED)</th></tr>
+    <tr><td>Mega Lifestyle / Arabic</td><td>Nourhan Elgouhary, Anas Bukhash</td><td>100K – 200K</td></tr>
+    <tr><td>Macro Lifestyle</td><td>Sham Idrees, Nida Siddiq</td><td>30K – 60K</td></tr>
+    <tr><td>Crypto Macro</td><td>Galadari, Alsaadi, Tapas</td><td>25K – 72K</td></tr>
+    <tr><td>Tech / Micro / Female</td><td>Lilly, Aziza, Maria, Mende, Amrita, CryptoRover</td><td>17K – 40K</td></tr>
+    <tr><td style="color:var(--teal)">TiKiT Agency Fees</td><td>Strategy, outreach, management, reporting</td><td style="color:var(--teal)">68K</td></tr>
+    <tr><td>TOTAL CAMPAIGN</td><td>13 influencers + full service</td><td>AED 350K – 550K</td></tr>
+  </table>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 13: WHY TIKIT -->
+<div class="slide" data-i="12">
+  <h3>Why TiKiT</h3>
+  <h1>Your <span class="gold">Unfair Advantage</span></h1>
+  <div class="grid3" style="margin-top:28px">
+    <div class="card" style="text-align:center">
+      <div style="font-size:36px;margin-bottom:12px">🎯</div>
+      <h4>Crypto-Native Network</h4>
+      <p style="text-align:center">Direct relationships with every crypto influencer in the UAE. No middlemen. No wasted outreach.</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:36px;margin-bottom:12px">⚡</div>
+      <h4>Speed of Execution</h4>
+      <p style="text-align:center">48-hour activation capability. Ramadan waits for no one — neither do we.</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:36px;margin-bottom:12px">📊</div>
+      <h4>Full-Stack Service</h4>
+      <p style="text-align:center">Strategy → outreach → briefing → content review → compliance → analytics → reporting. End to end.</p>
+    </div>
+  </div>
+  <p style="margin-top:24px;font-size:15px;color:#aaa"><em>"We don't just find influencers. We architect movements."</em></p>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<!-- SLIDE 14: NEXT STEPS -->
+<div class="slide" data-i="13">
+  <h3>Next Steps</h3>
+  <h1>Start <span class="gold">TODAY</span>.</h1>
+  <div class="grid3" style="margin-top:28px">
+    <div class="card" style="border-top:3px solid var(--gold);text-align:center">
+      <div style="font-size:48px;font-weight:900;color:var(--gold);margin-bottom:8px">1</div>
+      <h4>Approve & Sign</h4>
+      <p style="text-align:center">Green-light the campaign. Confirm budget tier. Sign TiKiT engagement letter.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--teal);text-align:center">
+      <div style="font-size:48px;font-weight:900;color:var(--teal);margin-bottom:8px">2</div>
+      <h4>Outreach Blitz</h4>
+      <p style="text-align:center">TiKiT contacts all 13 influencers within 24 hours. Lock rates, confirm availability, check conflicts.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #e040fb;text-align:center">
+      <div style="font-size:48px;font-weight:900;color:#e040fb;margin-bottom:8px">3</div>
+      <h4>First Posts Live</h4>
+      <p style="text-align:center">Tier A crypto influencers publish within 48 hours. Campaign is LIVE. Impact begins.</p>
+    </div>
+  </div>
+  <p style="margin-top:32px"><span class="tag tag-red pulse" style="font-size:14px;padding:8px 24px">⚡ RAMADAN IS LIVE — EVERY DAY COUNTS</span></p>
+  <p style="margin-top:16px;font-size:14px;color:#666">Contact TiKiT Agency to activate immediately.</p>
+  <div class="footer">TiKiT Agency — Confidential</div>
+</div>
+
+<div id="nav">
+  <button onclick="go(-1)" id="btnPrev">←</button>
+  <button onclick="go(1)" id="btnNext">→</button>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide'),total=slides.length;
+let cur=0;
+function show(n){
+  slides[cur].classList.remove('active');
+  cur=Math.max(0,Math.min(total-1,n));
+  slides[cur].classList.add('active');
+  document.getElementById('progress').style.width=((cur+1)/total*100)+'%';
+  document.getElementById('counter').textContent=(cur+1)+' / '+total;
+  // animate KPI bars on slide 10
+  if(cur===10){document.querySelectorAll('.kpi-fill').forEach(f=>{f.style.width=f.dataset.w})}
+}
+function go(d){show(cur+d)}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')go(1);
+  if(e.key==='ArrowLeft')go(-1);
+});
+show(0);
+</script>
+</body>
+</html>
