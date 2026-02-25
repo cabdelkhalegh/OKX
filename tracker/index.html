@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OKX × Dubai Cares — Outreach Tracker</title>
+<title>OKX Ã— Dubai Cares â€” Outreach Tracker</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -175,13 +175,13 @@ tbody td{padding:10px 10px;vertical-align:middle}
 <!-- ADD MODAL (hidden by default) -->
 <div class="modal-overlay" id="addModal" style="display:none">
   <div class="modal">
-    <h3>➕ Add Creator</h3>
+    <h3>âž• Add Creator</h3>
     <div class="form-grid">
       <div class="form-field full"><label>Name *</label><input id="f-name" placeholder="e.g. Lojain Omran"></div>
       <div class="form-field"><label>Handle *</label><input id="f-handle" placeholder="@username"></div>
       <div class="form-field"><label>Instagram URL</label><input id="f-ig" placeholder="https://instagram.com/..."></div>
       <div class="form-field"><label>Wave / Priority</label>
-        <select id="f-wave"><option value="P1">🔴 P1 — Priority</option><option value="P2">🟡 P2 — Mid</option><option value="P3" selected>🟢 P3 — Community</option></select>
+        <select id="f-wave"><option value="P1">ðŸ”´ P1 â€” Priority</option><option value="P2">ðŸŸ¡ P2 â€” Mid</option><option value="P3" selected>ðŸŸ¢ P3 â€” Community</option></select>
       </div>
       <div class="form-field"><label>OKX Status</label>
         <select id="f-okx"><option>OKX Approved</option><option>Our Pick</option><option selected>OKX Listed</option></select>
@@ -190,15 +190,15 @@ tbody td{padding:10px 10px;vertical-align:middle}
       <div class="form-field"><label>Category</label><input id="f-cat" placeholder="e.g. Lifestyle / Food"></div>
       <div class="form-field"><label>Followers</label><input id="f-foll" placeholder="e.g. 500K"></div>
       <div class="form-field"><label>Gender</label>
-        <select id="f-gender"><option value="">—</option><option>Female</option><option>Male</option><option>Couple / Team</option><option>Brand / Media</option></select>
+        <select id="f-gender"><option value="">â€”</option><option>Female</option><option>Male</option><option>Couple / Team</option><option>Brand / Media</option></select>
       </div>
-      <div class="form-field"><label>Age Range</label><input id="f-age" placeholder="e.g. 25–34"></div>
+      <div class="form-field"><label>Age Range</label><input id="f-age" placeholder="e.g. 25â€“34"></div>
       <div class="form-field full"><label>Audience Location</label><input id="f-aud" placeholder="e.g. UAE 60%, Saudi 20%, Egypt 10%"></div>
       <div class="form-field full"><label>Notes</label><textarea id="f-notes" rows="2" placeholder="Any relevant context..."></textarea></div>
     </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveNewCreator()">✓ Add Creator</button>
+      <button class="btn btn-primary" onclick="saveNewCreator()">âœ“ Add Creator</button>
     </div>
   </div>
 </div>
@@ -206,12 +206,12 @@ tbody td{padding:10px 10px;vertical-align:middle}
 <!-- TOP BAR -->
 <div class="topbar">
   <div>
-    <div class="topbar h1" style="color:var(--gold);font-size:14px;font-weight:800">⚙️ OKX × Dubai Cares — Outreach Tracker</div>
-    <div style="font-size:10px;color:var(--dim)">Ramadan 2026 | TiKiT Agency — Confidential</div>
+    <div class="topbar h1" style="color:var(--gold);font-size:14px;font-weight:800">âš™ï¸ OKX Ã— Dubai Cares â€” Outreach Tracker</div>
+    <div style="font-size:10px;color:var(--dim)">Ramadan 2026 | TiKiT Agency â€” Confidential</div>
   </div>
   <div class="topbar-right">
     <div class="rt-pulse"><div class="status-dot" id="rtDot"></div><span id="rtStatus">Connecting...</span></div>
-    <button class="btn btn-teal" onclick="exportCSV()">⬇ Export CSV</button>
+    <button class="btn btn-teal" onclick="exportCSV()">â¬‡ Export CSV</button>
   </div>
 </div>
 
@@ -234,12 +234,12 @@ tbody td{padding:10px 10px;vertical-align:middle}
 
 <!-- CONTROLS -->
 <div class="controls">
-  <input class="search-box" id="searchBox" placeholder="🔍  Search creator, handle, notes..." oninput="applyFilters()">
+  <input class="search-box" id="searchBox" placeholder="ðŸ”  Search creator, handle, notes..." oninput="applyFilters()">
   <select class="filter-select" id="fWave" onchange="applyFilters()">
     <option value="">All Waves</option>
-    <option value="P1">🔴 Priority (P1)</option>
-    <option value="P2">🟡 Mid-Range (P2)</option>
-    <option value="P3">🟢 Community (P3)</option>
+    <option value="P1">ðŸ”´ Priority (P1)</option>
+    <option value="P2">ðŸŸ¡ Mid-Range (P2)</option>
+    <option value="P3">ðŸŸ¢ Community (P3)</option>
   </select>
   <select class="filter-select" id="fStatus" onchange="applyFilters()">
     <option value="">All Statuses</option>
@@ -299,17 +299,17 @@ tbody td{padding:10px 10px;vertical-align:middle}
     <tbody id="tableBody"></tbody>
   </table>
   <div class="empty-state" id="emptyState" style="display:none">
-    <div class="icon">🔍</div>
+    <div class="icon">ðŸ”</div>
     <div>No creators match your filters.</div>
   </div>
 </div>
 
 <script>
 // ============================================================
-// CONFIG — Replace with your Supabase project values
+// CONFIG â€” Replace with your Supabase project values
 // ============================================================
-const SUPABASE_URL = 'REPLACE_WITH_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'REPLACE_WITH_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://trxifnxyrncsoxgklwcq.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyeGlmbnh5cm5jc294Z2tsd2NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI4MDYsImV4cCI6MjA4NzAxODgwNn0.kB0PKy1CLxsJIU1T2JIbtyDYV1HK0Pf3zaOsN_Kp5vc';
 const BUDGET_TOTAL = 350000; // AED
 // ============================================================
 
@@ -319,7 +319,7 @@ const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let allCreators = [];
 let showHidden = false;
 
-// ── INIT ──────────────────────────────────────────────────
+// â”€â”€ INIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function init() {
   try {
     await loadCreators();
@@ -328,7 +328,7 @@ async function init() {
   } catch(e) {
     document.getElementById('loading').innerHTML = `
       <div style="text-align:center;padding:24px">
-        <div style="font-size:24px;margin-bottom:12px">⚠️</div>
+        <div style="font-size:24px;margin-bottom:12px">âš ï¸</div>
         <div style="color:#ff5555;margin-bottom:8px">Database connection failed</div>
         <div style="font-size:12px;color:#666">${e.message}</div>
         <div style="font-size:11px;color:#555;margin-top:12px">Check that SUPABASE_URL and SUPABASE_ANON_KEY are configured correctly.</div>
@@ -336,7 +336,7 @@ async function init() {
   }
 }
 
-// ── LOAD DATA ─────────────────────────────────────────────
+// â”€â”€ LOAD DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function loadCreators() {
   const { data, error } = await db.from('okx_outreach').select('*').order('wave').order('name');
   if (error) throw error;
@@ -345,14 +345,14 @@ async function loadCreators() {
   updateBudget();
 }
 
-// ── REALTIME ──────────────────────────────────────────────
+// â”€â”€ REALTIME â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function setupRealtime() {
   db.channel('okx-outreach-rt')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'okx_outreach' }, payload => {
       const ev = payload.eventType;
       if (ev === 'INSERT') {
         allCreators.push(payload.new);
-        toast('👤 New creator added: ' + payload.new.name, 'info');
+        toast('ðŸ‘¤ New creator added: ' + payload.new.name, 'info');
       } else if (ev === 'UPDATE') {
         const i = allCreators.findIndex(c => c.id === payload.new.id);
         if (i >= 0) allCreators[i] = payload.new;
@@ -361,14 +361,14 @@ function setupRealtime() {
       }
       render();
       updateBudget();
-      document.getElementById('rtStatus').textContent = 'Live — ' + new Date().toLocaleTimeString('en', {hour:'2-digit',minute:'2-digit'});
+      document.getElementById('rtStatus').textContent = 'Live â€” ' + new Date().toLocaleTimeString('en', {hour:'2-digit',minute:'2-digit'});
     })
     .subscribe(status => {
       const dot = document.getElementById('rtDot');
       const txt = document.getElementById('rtStatus');
       if (status === 'SUBSCRIBED') {
         dot.style.background = '#28c850';
-        txt.textContent = 'Live — realtime connected';
+        txt.textContent = 'Live â€” realtime connected';
       } else {
         dot.style.background = '#ff5555';
         txt.textContent = 'Reconnecting...';
@@ -376,7 +376,7 @@ function setupRealtime() {
     });
 }
 
-// ── RENDER ────────────────────────────────────────────────
+// â”€â”€ RENDER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function applyFilters() { render(); }
 
 function render() {
@@ -418,17 +418,17 @@ function render() {
       <td class="cell-name">
         ${esc(c.name)}
         ${c.hidden ? '<span style="font-size:9px;background:rgba(255,119,0,.15);color:#ff7700;border:1px solid rgba(255,119,0,.25);padding:1px 6px;border-radius:6px;margin-left:4px">HIDDEN</span>' : ''}
-        <div class="sub">${esc(c.category||'')} ${c.gender ? '· '+esc(c.gender) : ''}</div>
+        <div class="sub">${esc(c.category||'')} ${c.gender ? 'Â· '+esc(c.gender) : ''}</div>
       </td>
       <td class="cell-handle">
-        <a href="${esc(c.ig_url||'#')}" target="_blank">${esc(c.handle||'—')}</a>
-        ${c.ig_url ? '<div style="font-size:9px;color:var(--dim)"><a href="'+esc(c.ig_url)+'" target="_blank" style="color:var(--dim)">↗ Instagram</a></div>' : ''}
+        <a href="${esc(c.ig_url||'#')}" target="_blank">${esc(c.handle||'â€”')}</a>
+        ${c.ig_url ? '<div style="font-size:9px;color:var(--dim)"><a href="'+esc(c.ig_url)+'" target="_blank" style="color:var(--dim)">â†— Instagram</a></div>' : ''}
       </td>
       <td><span class="wave-badge wave-${c.wave||'P3'}">${c.wave||'P3'}</span></td>
-      <td><span class="okx-badge ${okxClass(c.okx_status)}">${esc(c.okx_status||'—')}</span></td>
-      <td style="font-size:12px;font-weight:600">${esc(c.followers||'—')}</td>
-      <td style="font-size:11px;color:var(--muted)">${esc(c.nationality||'—')}</td>
-      <td style="font-size:11px;color:var(--muted)">${esc(c.category||'—')}</td>
+      <td><span class="okx-badge ${okxClass(c.okx_status)}">${esc(c.okx_status||'â€”')}</span></td>
+      <td style="font-size:12px;font-weight:600">${esc(c.followers||'â€”')}</td>
+      <td style="font-size:11px;color:var(--muted)">${esc(c.nationality||'â€”')}</td>
+      <td style="font-size:11px;color:var(--muted)">${esc(c.category||'â€”')}</td>
       <td>
         <input class="text-input" value="${esc(c.contacted_by||'')}" placeholder="Name..."
           onblur="updateField('${c.id}','contacted_by',this.value)" onkeydown="if(event.key==='Enter')this.blur()">
@@ -463,16 +463,16 @@ function render() {
       </td>
       <td>
         <div class="row-actions">
-          <button class="icon-btn" title="Edit demographics" onclick="editDemographics('${c.id}')">📊</button>
-          <button class="icon-btn hide-btn" title="${c.hidden?'Unhide':'Hide'}" onclick="toggleHideCreator('${c.id}',${!c.hidden})">${c.hidden?'👁':'🙈'}</button>
-          <button class="icon-btn delete-btn" title="Delete permanently" onclick="deleteCreator('${c.id}','${esc(c.name)}')">🗑</button>
+          <button class="icon-btn" title="Edit demographics" onclick="editDemographics('${c.id}')">ðŸ“Š</button>
+          <button class="icon-btn hide-btn" title="${c.hidden?'Unhide':'Hide'}" onclick="toggleHideCreator('${c.id}',${!c.hidden})">${c.hidden?'ðŸ‘':'ðŸ™ˆ'}</button>
+          <button class="icon-btn delete-btn" title="Delete permanently" onclick="deleteCreator('${c.id}','${esc(c.name)}')">ðŸ—‘</button>
         </div>
       </td>
     </tr>
   `).join('');
 }
 
-// ── FIELD UPDATE ──────────────────────────────────────────
+// â”€â”€ FIELD UPDATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function updateField(id, field, value) {
   const { error } = await db.from('okx_outreach').update({ [field]: value }).eq('id', id);
   if (error) { toast('Update failed: ' + error.message, 'error'); return; }
@@ -481,11 +481,11 @@ async function updateField(id, field, value) {
   updateBudget();
 }
 
-// ── HIDE/UNHIDE ───────────────────────────────────────────
+// â”€â”€ HIDE/UNHIDE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function toggleHideCreator(id, newHidden) {
   await updateField(id, 'hidden', newHidden);
   render();
-  toast(newHidden ? '🙈 Creator hidden' : '👁 Creator visible', 'info');
+  toast(newHidden ? 'ðŸ™ˆ Creator hidden' : 'ðŸ‘ Creator visible', 'info');
 }
 
 function toggleHidden() {
@@ -494,17 +494,17 @@ function toggleHidden() {
   render();
 }
 
-// ── DELETE ────────────────────────────────────────────────
+// â”€â”€ DELETE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function deleteCreator(id, name) {
   if (!confirm(`Delete "${name}" permanently? This cannot be undone.`)) return;
   const { error } = await db.from('okx_outreach').delete().eq('id', id);
   if (error) { toast('Delete failed: ' + error.message, 'error'); return; }
   allCreators = allCreators.filter(c => c.id !== id);
   render(); updateBudget();
-  toast(`🗑 "${name}" deleted`, 'info');
+  toast(`ðŸ—‘ "${name}" deleted`, 'info');
 }
 
-// ── ADD CREATOR ───────────────────────────────────────────
+// â”€â”€ ADD CREATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function openModal() { document.getElementById('addModal').style.display = 'flex'; }
 function closeModal() { document.getElementById('addModal').style.display = 'none'; clearForm(); }
 
@@ -529,7 +529,7 @@ async function saveNewCreator() {
   if (error) { toast('Insert failed: ' + error.message, 'error'); return; }
   allCreators.push(data);
   render(); updateBudget(); closeModal();
-  toast(`✅ "${name}" added to the tracker`, 'success');
+  toast(`âœ… "${name}" added to the tracker`, 'success');
 }
 
 function clearForm() {
@@ -541,7 +541,7 @@ function clearForm() {
   document.getElementById('f-gender').value = '';
 }
 
-// ── DEMOGRAPHICS EDIT ─────────────────────────────────────
+// â”€â”€ DEMOGRAPHICS EDIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function editDemographics(id) {
   const c = allCreators.find(x => x.id === id);
   if (!c) return;
@@ -556,10 +556,10 @@ async function editDemographics(id) {
   await db.from('okx_outreach').update({ gender, age_range, audience_location, followers }).eq('id', id);
   Object.assign(c, { gender, age_range, audience_location, followers });
   render();
-  toast('📊 Demographics updated', 'success');
+  toast('ðŸ“Š Demographics updated', 'success');
 }
 
-// ── BUDGET CALC ───────────────────────────────────────────
+// â”€â”€ BUDGET CALC â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function updateBudget() {
   const visible = allCreators.filter(c => !c.hidden);
   const probono = visible.filter(c => c.status === 'Pro-bono Confirmed').length;
@@ -580,7 +580,7 @@ function updateBudget() {
   document.getElementById('b-remaining').style.color = remaining < 50000 ? 'var(--red)' : 'var(--orange)';
 }
 
-// ── EXPORT CSV ────────────────────────────────────────────
+// â”€â”€ EXPORT CSV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function exportCSV() {
   const headers = ['Name','Handle','IG URL','Wave','OKX Status','Followers','Nationality','Category','Gender','Age Range','Audience Location','Contacted By','Status','Compensation','Fee Quoted (AED)','Fee Agreed (AED)','Notes'];
   const rows = allCreators.filter(c => !c.hidden).map(c => [
@@ -593,10 +593,10 @@ function exportCSV() {
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   a.download = 'OKX_DubaiCares_Outreach_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
-  toast('📥 CSV exported', 'success');
+  toast('ðŸ“¥ CSV exported', 'success');
 }
 
-// ── HELPERS ───────────────────────────────────────────────
+// â”€â”€ HELPERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function hide(id) { document.getElementById(id).style.display = 'none'; }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -642,8 +642,9 @@ function toast(msg, type='info') {
   setTimeout(() => { div.style.opacity='0'; div.style.transition='.3s'; setTimeout(() => div.remove(), 300); }, 3000);
 }
 
-// ── START ─────────────────────────────────────────────────
+// â”€â”€ START â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 init();
 </script>
 </body>
 </html>
+
