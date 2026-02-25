@@ -237,9 +237,9 @@ tbody td{padding:10px 10px;vertical-align:middle}
   <div class="budget-sep"></div>
   <div class="bstat gold"><div class="val" id="b-paid-count">0</div><div class="lbl">Paid Confirmed</div></div>
   <div class="budget-sep"></div>
-  <div class="bstat" style="--c:var(--purple)"><div class="val" id="b-fees" style="color:var(--purple)">AED 0</div><div class="lbl">Fees Agreed</div></div>
+  <div class="bstat" style="--c:var(--purple)"><div class="val" id="b-fees" style="color:var(--purple)">$0</div><div class="lbl">Fees Agreed (USD)</div></div>
   <div class="budget-sep"></div>
-  <div class="bstat red"><div class="val" id="b-remaining">AED 350,000</div><div class="lbl">Budget Remaining</div></div>
+  <div class="bstat red"><div class="val" id="b-remaining">$30,000</div><div class="lbl">Budget Remaining (USD)</div></div>
   <div class="budget-sep"></div>
   <div class="bstat"><div class="val" id="b-declined" style="color:var(--red)">0</div><div class="lbl">Declined</div></div>
   <div class="budget-sep"></div>
@@ -304,8 +304,8 @@ tbody td{padding:10px 10px;vertical-align:middle}
         <th style="width:80px">Contacted By</th>
         <th style="width:170px">Status</th>
         <th style="width:110px">Compensation</th>
-        <th style="width:105px">Fee Quoted (AED)</th>
-        <th style="width:105px">Fee Agreed (AED)</th>
+        <th style="width:105px">Fee Quoted (USD)</th>
+        <th style="width:105px">Fee Agreed (USD)</th>
         <th style="width:190px">Notes</th>
         <th style="width:70px">Actions</th>
       </tr>
@@ -322,7 +322,8 @@ tbody td{padding:10px 10px;vertical-align:middle}
 // CONFIG
 const SUPABASE_URL = 'https://trxifnxyrncsoxgklwcq.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyeGlmbnh5cm5jc294Z2tsd2NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI4MDYsImV4cCI6MjA4NzAxODgwNn0.kB0PKy1CLxsJIU1T2JIbtyDYV1HK0Pf3zaOsN_Kp5vc';
-const BUDGET_TOTAL = 350000;
+const BUDGET_TOTAL = 30000;
+const CURRENCY = '$'; // USD
 
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -584,15 +585,15 @@ function updateBudget() {
   document.getElementById('b-paid-count').textContent = paidCount;
   document.getElementById('b-contacted').textContent = contacted;
   document.getElementById('b-declined').textContent = declined;
-  document.getElementById('b-fees').textContent = 'AED ' + fees.toLocaleString();
-  document.getElementById('b-remaining').textContent = 'AED ' + Math.max(0, remaining).toLocaleString();
+  document.getElementById('b-fees').textContent = CURRENCY + fees.toLocaleString();
+  document.getElementById('b-remaining').textContent = CURRENCY + Math.max(0, remaining).toLocaleString();
   document.getElementById('b-total').textContent = visible.length;
   document.getElementById('b-remaining').style.color = remaining < 50000 ? 'var(--red)' : 'var(--orange)';
 }
 
 // -- CSV EXPORT --
 function exportCSV() {
-  const headers = ['Name','Handle','IG URL','Wave','OKX Status','Followers','Nationality','Category','Gender','Age Range','Audience Location','Contacted By','Status','Compensation','Fee Quoted (AED)','Fee Agreed (AED)','Notes'];
+  const headers = ['Name','Handle','IG URL','Wave','OKX Status','Followers','Nationality','Category','Gender','Age Range','Audience Location','Contacted By','Status','Compensation','Fee Quoted (USD)','Fee Agreed (USD)','Notes'];
   const rows = allCreators.filter(c => !c.hidden).map(c => [
     c.name, c.handle, c.ig_url, c.wave, c.okx_status, c.followers,
     c.nationality, c.category, c.gender, c.age_range, c.audience_location,
