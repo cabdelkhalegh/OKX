@@ -106,6 +106,16 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--white);fo
 /* Responsive */
 @media(max-width:900px){.grid2,.grid3,.grid4,.phases{grid-template-columns:1fr;flex-direction:column}.inf-grid{grid-template-columns:repeat(2,1fr)}.slide{padding:40px 28px}}
 @media(max-width:600px){.inf-grid{grid-template-columns:1fr}}
+
+/* Print styles — proper PDF rendering */
+@media print{
+  html,body{overflow:visible!important;height:auto!important;background:#0a0a0f!important}
+  #progress,#nav,#counter{display:none!important}
+  .slide{position:relative!important;opacity:1!important;pointer-events:auto!important;transform:none!important;display:flex!important;page-break-after:always;break-after:page;min-height:100vh;padding:48px 72px}
+  .footer{position:relative!important;margin-top:24px}
+  .kpi-fill{width:var(--print-w,60%)!important;transition:none!important}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
 </head>
 <body>
@@ -330,28 +340,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--white);fo
   <div class="footer">TiKiT Agency — Confidential</div>
 </div>
 
-<!-- SLIDE 10: OUTREACH -->
+<!-- SLIDE 10: KPIs -->
 <div class="slide" data-i="9">
-  <h3>Outreach Communication</h3>
-  <h2>DM / Email Template</h2>
-  <div class="outreach-box" style="margin-top:20px">
-    <div class="subj">Subject: TiKiT × OKX × Dubai Cares — Ramadan Campaign — URGENT</div>
-    <p style="color:#ccc;font-size:15px;line-height:2">
-      Hi <span class="gold">[Name]</span>,<br><br>
-      We're activating an <strong style="color:#fff">OKX × Dubai Cares</strong> Ramadan campaign <strong style="color:#ff5555">NOW</strong>.<br><br>
-      This is a giving movement powered by crypto — every registration through the campaign funds education for children in 60+ countries via Dubai Cares.<br><br>
-      We'd love <span class="gold">[Name]</span> as one of <strong style="color:#fff">13 selected voices</strong> for this campaign.<br><br>
-      Available for an immediate brief?<br>
-      Rate for <strong style="color:#fff">1× Reel + 2× Stories</strong>?<br>
-      Any competitor conflicts (Binance, Bybit, Coinbase)?<br><br>
-      <span style="color:var(--gold)">— TiKiT Agency</span>
-    </p>
-  </div>
-  <div class="footer">TiKiT Agency — Confidential</div>
-</div>
-
-<!-- SLIDE 11: KPIs -->
-<div class="slide" data-i="10">
   <h3>KPIs & Measurement</h3>
   <h2>Success Metrics</h2>
   <div style="margin-top:28px;width:100%;max-width:750px">
@@ -365,24 +355,24 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--white);fo
   <div class="footer">TiKiT Agency — Confidential</div>
 </div>
 
-<!-- SLIDE 12: BUDGET -->
-<div class="slide" data-i="11">
+<!-- SLIDE 11: BUDGET -->
+<div class="slide" data-i="10">
   <h3>Budget Framework</h3>
   <h2>Investment Breakdown</h2>
   <table class="budget-table" style="margin-top:24px">
     <tr><th>Category</th><th>Influencers</th><th>Budget (AED)</th></tr>
-    <tr><td>Mega Lifestyle / Arabic</td><td>Nourhan Elgouhary, Anas Bukhash</td><td>100K – 200K</td></tr>
-    <tr><td>Macro Lifestyle</td><td>Sham Idrees, Nida Siddiq</td><td>30K – 60K</td></tr>
-    <tr><td>Crypto Macro</td><td>Galadari, Alsaadi, Tapas</td><td>25K – 72K</td></tr>
-    <tr><td>Tech / Micro / Female</td><td>Lilly, Aziza, Maria, Mende, Amrita, CryptoRover</td><td>17K – 40K</td></tr>
+    <tr><td>Mega / Saudi (Lojain Omran)</td><td>Lojain Omran, Anas Bukhash, Khalid Al Ameri</td><td>150K – 280K</td></tr>
+    <tr><td>Macro Lifestyle</td><td>Sham Idrees, Nourhan Elgouhary, Amrita Sethi</td><td>40K – 80K</td></tr>
+    <tr><td>Crypto Macro</td><td>Galadari, Alsaadi, Tapas, Mende, CryptoRover</td><td>25K – 72K</td></tr>
+    <tr><td>Female / Micro</td><td>Lilly, Aziza, Maria</td><td>12K – 30K</td></tr>
     <tr><td style="color:var(--teal)">TiKiT Agency Fees</td><td>Strategy, outreach, management, reporting</td><td style="color:var(--teal)">68K</td></tr>
-    <tr><td>TOTAL CAMPAIGN</td><td>13 influencers + full service</td><td>AED 350K – 550K</td></tr>
+    <tr><td>TOTAL CAMPAIGN</td><td>15 core + 58 community wave</td><td>AED 350K – 550K</td></tr>
   </table>
   <div class="footer">TiKiT Agency — Confidential</div>
 </div>
 
-<!-- SLIDE 13: WHY TIKIT -->
-<div class="slide" data-i="12">
+<!-- SLIDE 12: WHY TIKIT -->
+<div class="slide" data-i="11">
   <h3>Why TiKiT</h3>
   <h1>Your <span class="gold">Unfair Advantage</span></h1>
   <div class="grid3" style="margin-top:28px">
@@ -406,8 +396,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--white);fo
   <div class="footer">TiKiT Agency — Confidential</div>
 </div>
 
-<!-- SLIDE 14: NEXT STEPS -->
-<div class="slide" data-i="13">
+<!-- SLIDE 13: NEXT STEPS -->
+<div class="slide" data-i="12">
   <h3>Next Steps</h3>
   <h1>Start <span class="gold">TODAY</span>.</h1>
   <div class="grid3" style="margin-top:28px">
@@ -446,8 +436,8 @@ function show(n){
   slides[cur].classList.add('active');
   document.getElementById('progress').style.width=((cur+1)/total*100)+'%';
   document.getElementById('counter').textContent=(cur+1)+' / '+total;
-  // animate KPI bars on slide 10
-  if(cur===10){document.querySelectorAll('.kpi-fill').forEach(f=>{f.style.width=f.dataset.w})}
+  // animate KPI bars on slide 9 (KPIs)
+  if(cur===9){document.querySelectorAll('.kpi-fill').forEach(f=>{f.style.width=f.dataset.w})}
 }
 function go(d){show(cur+d)}
 document.addEventListener('keydown',e=>{
