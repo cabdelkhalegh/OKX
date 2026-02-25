@@ -466,7 +466,7 @@ function render() {
       <td>
         <input class="fee-input" type="number" min="0" step="500"
           value="${c.fee_agreed||''}" placeholder="0"
-          onblur="updateField('${c.id}','fee_agreed',parseFloat(this.value)||null);updateBudget()"
+          onblur="updateField('${c.id}','fee_agreed',parseFloat(this.value)||null)"
           onkeydown="if(event.key==='Enter')this.blur()">
       </td>
       <td>
@@ -484,13 +484,18 @@ function render() {
   `).join('');
 }
 
-// -- FIELD UPDATE --
+// -- FIELD UPDATE (optimistic: update local state + budget immediately, persist in background) --
 async function updateField(id, field, value) {
-  const { error } = await db.from('okx_outreach').update({ [field]: value }).eq('id', id);
-  if (error) { toast('Update failed: ' + error.message, 'error'); return; }
   const c = allCreators.find(x => x.id === id);
-  if (c) c[field] = value;
-  updateBudget();
+  const oldValue = c ? c[field] : null;
+  // Update local cache + budget banner instantly (no re-render — preserves input focus)
+  if (c) { c[field] = value; updateBudget(); }
+  const { error } = await db.from('okx_outreach').update({ [field]: value }).eq('id', id);
+  if (error) {
+    // Revert local cache on failure
+    if (c) { c[field] = oldValue; updateBudget(); }
+    toast('Save failed: ' + error.message, 'error');
+  }
 }
 
 // -- HIDE/UNHIDE --
